@@ -1,48 +1,51 @@
-<!--
-Zadanie1 - FUTURE
-
-- pobierz projekt w wersji startowej, masz tam zdjęcie i początkową strukturę html.
-- zrób reset oraz ustaw minimalną wysokosć na 300 procent wysokości przeglądarki
-- ustaw header na 80 proc. wysokości przeglądarki.
-- w headerze ustaw zdjecie (city.jpg) jako tło, wycentruj je w poziomie oraz ustaw tak by "rysowało się" od dołu (background-position).
-- przypnij tło w header, tak by było nieruchome (background-attachment)
-
-- Ustaw h1 za pomocą pozycjonowania absolutengo wewnątrz header.
-- Ustaw wielkość fonta na 80px, rodzinę fonta na arial, color na white.
-- Okreś pozycję h1 na 50px od dolnej krawędzie header.
-- Pod jedynką zrób czarne, ale przezroczyste tło (właściwość rgba). Przezroczystość określ na 70%.
-- tło pod h1 ma być na całej szerokości strony.
-- tekst w h1 ma być wyśrodkowany.
-- zrób trochę przestrzeni nad tekstem, przestrzeń powinna zawierać tło (np. padding).
-
-- Section oddal o 100px, ustaw jej szerokosć na 80% okna przeglądarki, a wysokość linii na 190% wielkości fonta. Zmień rodzinę fonta na verdana.
--->
-
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bracia Słowianie</title>
   <style>
-    /*   Napisz style, nie ingeruj w body*/
     * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
-    body {
-      max-height: 300vh;
+    html {
+      font-family: arial, sans-serif;
     }
 
     header {
-
-      min-height: 80vh;
-      background-image: url(green.jpg);
-      background-position: center bottom;
-      background-attachment: fixed;
       position: relative;
+      height: 100vh;
+
+      max-width: 1400px;
+      margin: 0 auto;
+
+      background-image: url(green.jpg);
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+
+    header>* {
+      position: absolute;
+
+    }
+
+    .swarga {
+      width: 100%;
+      text-align: left;
+      padding: 30px 30px;
+
+
+    }
+
+    header img {
+      top: 30px;
+      left: 60px;
+      width: 10%;
     }
 
     @font-face {
@@ -50,39 +53,183 @@ Zadanie1 - FUTURE
       src: url(OldLondon.ttf);
     }
 
-    h1 {
-      position: absolute;
-      font-size: 100px;
-      font-family: 'nazi';
-      letter-spacing: 20px;
-      color: rgba(255, 3, 3, 0.56);
-      bottom: 50px;
-      left: 0;
+    header h1 {
+      top: 45%;
+      width: 100%;
+      padding: 20px;
+      font-size: 90px;
+      font-family: "nazi";
+      letter-spacing: 40px;
+      background-color: rgba(0, 0, 0, .5);
+      color: rgba(239, 0, 0, 0.7);
+      text-transform: uppercase;
+      letter-spacing: 2px;
       text-align: center;
-      background-color: rgba(0, 0, 0, 0.7);
-      width: 100%
+
+    }
+
+    header button {
+      bottom: 50px;
+      right: 80px;
+      font-size: 30px;
+      padding: 10px 30px;
+      font-family: roboto condensed, arial, sans-serif;
+      text-transform: uppercase;
+      background-color: transparent;
+      color: white;
+      border: 4px solid white;
+      transition: .3s;
+
+    }
+
+    header button:hover {
+      background-color: rgba(0, 0, 0, .5);
     }
 
     section {
-      width: 80%;
-      margin: 100px auto 0;
-      line-height: 1.9;
-      font-family: verdana;
+      width: 86%;
+      margin: 80px auto 0 auto;
+    }
+
+    div.nag {
+
+      padding: 20px;
+      /*  margin: 0 auto;*/
+    }
+
+    div.nag h2 {
+      margin-left: -20px;
+      text-align: left;
+    }
+
+    section p {
+      line-height: 1.8;
+      font-size: 15px;
+    }
+
+    div.zagadka {
+      margin-top: 50px;
+    }
+
+    div.zagadka h2 {
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      padding: 20px 0;
+      display: inline;
 
     }
 
-    p {
-      text-align: justify;
-    }
-
-    footer div {
-      margin-top: 40px;
-      text-align: center;
-      letter-spacing: 5px;
-      font-family: arial;
+    footer {
       background-color: black;
       color: white;
-      font-size: 15px;
+      text-align: center;
+      margin-top: 50px;
+      padding: 5px;
+    }
+
+
+    @media (max-width: 1024px) {
+      header {
+        background-size: cover;
+      }
+
+      header img {
+        width: 20%;
+      }
+    }
+
+    @media (max-width: 812px) and (orientation: landscape) {
+      header img {
+        /*    width: 25%;*/
+      }
+
+      header h1 {
+        font-size: 26px;
+      }
+
+      header button {
+        bottom: 30px;
+        font-size: 20px;
+      }
+    }
+
+    @media (max-width: 736px) and (orientation: landscape) {
+      header img {
+        width: 15%;
+      }
+
+      header h1 {
+        font-size: 45px;
+      }
+    }
+
+    @media (max-width: 640px) and (orientation: landscape) {
+      header h1 {
+        top: 40%;
+        font-size: 40px;
+      }
+
+      header button {
+        right: 20px;
+      }
+    }
+
+    @media (max-width: 533px) and (orientation: landscape) {
+
+      header h1 {
+        top: 40%;
+        font-size: 20px;
+      }
+
+      header button {
+        bottom: 30px;
+        font-size: 18px;
+      }
+    }
+
+    @media (max-width: 414px) and (orientation: portrait) {
+      header img {
+        left: 10%;
+        width: 30%;
+      }
+
+      header h1 {
+        top: 35%;
+        font-size: 30px;
+        line-height: 180%;
+      }
+
+      header button {
+        right: 10%;
+        width: 80%;
+        font-size: 32px;
+
+      }
+    }
+
+    @media (max-width: 360px) and (orientation: portrait) {
+
+      header h1 {
+        top: 40%;
+        font-size: 24px;
+
+      }
+
+      header button {
+
+        font-size: 20px;
+      }
+    }
+
+
+    @media (max-width: 320px) and (orientation: portrait) {
+
+      header button {
+
+        font-size: 20px;
+      }
     }
 
   </style>
@@ -90,23 +237,24 @@ Zadanie1 - FUTURE
 
 <body>
   <header>
+    <div class="swarga">
+      <img class="logo" src="ko%C5%82owr%C3%B3t.png" alt="kołowrót">
+    </div>
     <h1>Bracia Slowianie</h1>
+    <button>Poznaj nas!</button>
   </header>
   <section>
-    <p>Bracia Słowianie to elitarna grupa najszlachetniejszych mężów, których dotąd nosiła nasza Matka Ziemia. Powstawanie jej ma miejsce cyklicznie, w każdym z eonów czasu. Jednak teraz nastał czas szczególnej jej wizualizacji i inicjacji. Każdy z mędrców grupy to jest <strong>Kistron</strong>, <strong>Karczmanasutra</strong></p>, <strong>Pyndzosław</strong> oraz <strong>Ananuaki</strong> są w stanie szczególnej transformacji swojej mocy aby pomoagać w dążeniu do jedności ducha. Dlatego jeśliś gotów, rozkoduj wiadomość a znajdziesz nas w prastarych lasach <strong>Lechii.</strong>.
-    <br>
-    <br>
-    <br>
-    <br>
-    <h2>Zakodowana wiadomość przełożona na język łaciński</h2>
-    <br>
-
-    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae rerum voluptatibus commodi nemo aspernatur dicta quod debitis quae, nostrum dolores vitae ipsum doloribus id, iusto minus. Dolor nihil sapiente optio, in ea non facilis asperiores consequuntur inventore suscipit corporis laudantium vitae eligendi sunt expedita sed esse sequi deserunt. Ipsam ullam sapiente, minus nesciunt debitis cum nostrum quisquam ducimus rerum suscipit recusandae, aliquam numquam! Maxime aperiam quibusdam, optio aliquid incidunt asperiores ipsa, natus error et, quis eius vitae beatae mollitia nam facere similique iusto harum quisquam quia deleniti facilis. Veritatis distinctio at reiciendis. Incidunt obcaecati provident deleniti fugit voluptas sit, molestias, vitae omnis corporis dolor laudantium optio vel qui, natus mollitia sed consequatur velit tempora! Consectetur minima quae, quaerat ipsum optio asperiores, vel quos, quibusdam, praesentium a velit. Blanditiis harum reiciendis at sunt suscipit, nihil fugiat nam natus repellendus quaerat impedit nulla officia necessitatibus repellat, magni consequuntur. Officiis exercitationem incidunt repellendus ducimus, iste rem dignissimos assumenda veniam unde dolor sint, quibusdam. Similique iste aliquid perspiciatis voluptatem, mollitia dolorum sapiente illo excepturi suscipit rerum aut cupiditate perferendis quasi repudiandae, placeat aperiam architecto. Non impedit, excepturi ratione, beatae hic, corporis eum placeat dignissimos dolorem eveniet quae tempora molestias molestiae laudantium velit iure doloremque.</p>
-
+    <div class="nag">
+      <h2>Jeżeli już tu trafiłeś...to dobry znak!</h2>
+    </div>
+    <p>Bracia Słowianie to elitarna grupa najszlachetniejszych mężów, których dotąd nosiła nasza Matka Ziemia. Powstawanie jej ma miejsce cyklicznie, w każdym z eonów czasu. Jednak teraz nastał czas szczególnej jej wizualizacji i inicjacji. Każdy z mędrców grupy to jest <strong>Kistron</strong>, <strong>Karczmanasutra</strong>, <strong>Pyndzosław</strong> oraz <strong>Ananuaki</strong> są w stanie szczególnej transformacji swojej mocy aby pomoagać w dążeniu do jedności ducha. Dlatego jeśliś gotów, rozkoduj wiadomość a znajdziesz nas w prastarych lasach <strong>Lechii</strong>.</p>
+    <div class="zagadka">
+      <h2>Zakodowana wiadomość</h2>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic necessitatibus, explicabo ipsum, voluptatem, maiores mollitia iste voluptas vel sint commodi ea tenetur dolores beatae. Aperiam corporis voluptate, rerum id, voluptas maiores dolores assumenda, laudantium reprehenderit dignissimos perferendis. Sint adipisci, aliquam saepe dolorum laborum, quasi tempore, voluptates aliquid necessitatibus perspiciatis accusamus.</p>
+    </div>
   </section>
-  <footer>
-    <div>&#174Copyright by Bracia Słowianie UnLimited Edition 2020</div>
-  </footer>
+  <footer>&copy; Anakonda Corporation</footer>
+
 </body>
 
 </html>
