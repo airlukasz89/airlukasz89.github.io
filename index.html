@@ -5,6 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bracia Słowianie</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500&family=Roboto+Condensed:wght@400;700&display=swap"
+    rel="stylesheet">
   <style>
     * {
       margin: 0;
@@ -14,6 +17,8 @@
 
     html {
       font-family: arial, sans-serif;
+      /* font-size: 10px; */
+
     }
 
     header {
@@ -48,22 +53,23 @@
       width: 10%;
     }
 
-    @font-face {
+    /* @font-face {
       font-family: "nazi";
       src: url(OldLondon.ttf);
-    }
+    } */
 
     header h1 {
       top: 45%;
       width: 100%;
       padding: 20px;
       font-size: 90px;
-      font-family: "nazi";
-      letter-spacing: 40px;
+      /* font-family: "nazi"; */
+      font-family: 'Oswald', sans-serif;
+      letter-spacing: 5px;
       background-color: rgba(0, 0, 0, .5);
-      color: rgba(239, 0, 0, 0.7);
+      color: white;
       text-transform: uppercase;
-      letter-spacing: 2px;
+
       text-align: center;
 
     }
@@ -112,8 +118,45 @@
     }
 
     div.zagadka h2 {
-      margin-bottom: 20px;
+      margin-bottom: 50px;
+      text-align: center;
     }
+
+
+
+    .start {
+
+      display: block;
+      margin-bottom: 200px;
+      margin: 0 auto;
+      bottom: 1000px;
+      right: 80px;
+      font-size: 20px;
+      padding: 10px 10px;
+      font-family: roboto condensed, arial, sans-serif;
+      text-transform: uppercase;
+      background-color: transparent;
+      color: black;
+      border: 4px solid black;
+      transition: .3s;
+
+    }
+
+    .area {
+      margin-top: 50px;
+    }
+
+    div.zagadka button:hover {
+      background-color: rgba(0, 0, 0, .5);
+    }
+
+    .zagadka p {
+      margin-top: 25px;
+    }
+
+
+
+
 
     h3 {
       padding: 20px 0;
@@ -129,6 +172,16 @@
       padding: 5px;
     }
 
+    .cursor {
+      opacity: 0;
+      transition: .2s;
+    }
+
+    .cursor.active {
+      opacity: 1;
+    }
+
+
 
     @media (max-width: 1024px) {
       header {
@@ -142,7 +195,7 @@
 
     @media (max-width: 812px) and (orientation: landscape) {
       header img {
-        /*    width: 25%;*/
+        /* width: 25%;*/
       }
 
       header h1 {
@@ -231,7 +284,6 @@
         font-size: 20px;
       }
     }
-
   </style>
 </head>
 
@@ -240,21 +292,29 @@
     <div class="swarga">
       <img class="logo" src="ko%C5%82owr%C3%B3t.png" alt="kołowrót">
     </div>
-    <h1>Bracia Slowianie</h1>
+    <h1>Bracia Słowianie</h1>
     <button>Poznaj nas!</button>
   </header>
   <section>
     <div class="nag">
       <h2>Jeżeli już tu trafiłeś...to dobry znak!</h2>
     </div>
-    <p>Bracia Słowianie to elitarna grupa najszlachetniejszych mężów, których dotąd nosiła nasza Matka Ziemia. Powstawanie jej ma miejsce cyklicznie, w każdym z eonów czasu. Jednak teraz nastał czas szczególnej jej wizualizacji i inicjacji. Każdy z mędrców grupy to jest <strong>Kistron</strong>, <strong>Karczmanasutra</strong>, <strong>Pyndzosław</strong> oraz <strong>Ananuaki</strong> są w stanie szczególnej transformacji swojej mocy aby pomoagać w dążeniu do jedności ducha. Dlatego jeśliś gotów, rozkoduj wiadomość a znajdziesz nas w prastarych lasach <strong>Lechii</strong>.</p>
+    <p>Bracia Słowianie to elitarna grupa najszlachetniejszych mężów, których dotąd nosiła nasza Matka Ziemia.
+      Powstawanie jej ma miejsce cyklicznie, w każdym z eonów czasu. Jednak teraz nastał czas szczególnej jej
+      wizualizacji i inicjacji. Każdy z mędrców grupy to jest <strong>Kistron</strong>,
+      <strong>Karczmanasutra</strong>,
+      <strong>Pyndzosław</strong> oraz <strong>Ananuaki</strong> są w stanie szczególnej transformacji swojej mocy aby
+      pomagać w dążeniu do jedności ducha. Dlatego jeśliś gotów, rozkoduj wiadomość a znajdziesz nas w prastarych
+      lasach <strong>Lechii</strong>.</p>
     <div class="zagadka">
       <h2>Zakodowana wiadomość</h2>
-      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Hic necessitatibus, explicabo ipsum, voluptatem, maiores mollitia iste voluptas vel sint commodi ea tenetur dolores beatae. Aperiam corporis voluptate, rerum id, voluptas maiores dolores assumenda, laudantium reprehenderit dignissimos perferendis. Sint adipisci, aliquam saepe dolorum laborum, quasi tempore, voluptates aliquid necessitatibus perspiciatis accusamus.</p>
-    </div>
+      <button class="start">Pokaż wiadomość</button>
+      <div class="area">
+        <span class="text"></span><span class="cursor">|</span>
+      </div>
   </section>
   <footer>&copy; Anakonda Corporation</footer>
-
+  <script src="main.js"></script>
 </body>
 
 </html>
