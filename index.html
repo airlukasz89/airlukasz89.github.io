@@ -13,6 +13,7 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
+
     }
 
     html {
@@ -23,7 +24,7 @@
 
     header {
       position: relative;
-      height: 100vh;
+      height: 150vh;
 
       max-width: 1400px;
       margin: 0 auto;
@@ -40,6 +41,8 @@
     }
 
     .swarga {
+      top: 40px;
+      left: 20px;
       width: 100%;
       text-align: left;
       padding: 30px 30px;
@@ -47,7 +50,7 @@
 
     }
 
-    header img {
+    .logo {
       top: 30px;
       left: 60px;
       width: 10%;
@@ -65,7 +68,7 @@
       font-size: 90px;
       /* font-family: "nazi"; */
       font-family: 'Oswald', sans-serif;
-      letter-spacing: 5px;
+      letter-spacing: 29px;
       background-color: rgba(0, 0, 0, .5);
       color: white;
       text-transform: uppercase;
@@ -74,11 +77,26 @@
 
     }
 
+    header div {
+      bottom: 30px;
+      left: 150px;
+    }
+
+    header div span {
+      color: white;
+      bottom: 50px;
+      left: 80px;
+      letter-spacing: 2px;
+      font-size: 40px;
+      font-family: 'Oswald', sans-serif;
+      text-align: center;
+    }
+
     header button {
       bottom: 50px;
       right: 80px;
       font-size: 30px;
-      padding: 10px 30px;
+      padding: 3px 31px;
       font-family: roboto condensed, arial, sans-serif;
       text-transform: uppercase;
       background-color: transparent;
@@ -97,7 +115,9 @@
       margin: 80px auto 0 auto;
     }
 
-    div.nag {
+
+
+    */ div.nag {
 
       padding: 20px;
       /*  margin: 0 auto;*/
@@ -106,21 +126,25 @@
     div.nag h2 {
       margin-left: -20px;
       text-align: left;
+      margin-bottom: 50px;
     }
 
     section p {
       line-height: 1.8;
       font-size: 15px;
+      margin-bottom: 118px;
+
     }
 
     div.zagadka {
       margin-top: 50px;
     }
 
-    div.zagadka h2 {
-      margin-bottom: 50px;
+    /* div.zagadka h2 { */
+    /* margin-bottom: 50px;
       text-align: center;
-    }
+      text-transform: uppercase;
+    } */
 
 
 
@@ -138,16 +162,23 @@
       background-color: transparent;
       color: black;
       border: 4px solid black;
-      transition: .3s;
+      transition: .6s;
 
     }
 
     .area {
       margin-top: 50px;
+      margin-bottom: 100px;
+    }
+
+
+
     }
 
     div.zagadka button:hover {
-      background-color: rgba(0, 0, 0, .5);
+      background-color: black;
+      border: 4px solid rgb(99, 168, 21);
+      color: white;
     }
 
     .zagadka p {
@@ -178,6 +209,15 @@
     }
 
     .cursor.active {
+      opacity: 1;
+    }
+
+    .cursor1 {
+      opacity: 0;
+      transition: .2s;
+    }
+
+    .cursor1.active {
       opacity: 1;
     }
 
@@ -293,9 +333,14 @@
       <img class="logo" src="ko%C5%82owr%C3%B3t.png" alt="kołowrót">
     </div>
     <h1>Bracia Słowianie</h1>
-    <button>Poznaj nas!</button>
+
+    <button class="hey">Poznaj nas!</button>
+    <div>
+      <span class="text1"></span><span class="cursor1">|</span>
+    </div>
   </header>
   <section>
+
     <div class="nag">
       <h2>Jeżeli już tu trafiłeś...to dobry znak!</h2>
     </div>
@@ -307,14 +352,15 @@
       pomagać w dążeniu do jedności ducha. Dlatego jeśliś gotów, rozkoduj wiadomość a znajdziesz nas w prastarych
       lasach <strong>Lechii</strong>.</p>
     <div class="zagadka">
-      <h2>Zakodowana wiadomość</h2>
-      <button class="start">Pokaż wiadomość</button>
+      <!-- <h2>Zakodowana wiadomość</h2> -->
+      <button class="start">ZAKODOWANA WIADOMOŚĆ</button>
       <div class="area">
         <span class="text"></span><span class="cursor">|</span>
       </div>
   </section>
   <footer>&copy; Anakonda Corporation</footer>
   <script src="main.js"></script>
+  <script src="main2.js"></script>
 </body>
 
 </html>
