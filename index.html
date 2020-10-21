@@ -24,7 +24,7 @@
 
     header {
       position: relative;
-      height: 150vh;
+      height: 100vh;
 
       max-width: 1400px;
       margin: 0 auto;
@@ -41,10 +41,11 @@
     }
 
     .swarga {
+      margin: 0, auto;
       top: 19px;
-      left: 25px;
-      width: 96%;
-      text-align: left;
+      left: 0;
+      width: 100%;
+      /* text-align: left; */
       padding: 30px 30px;
 
 
@@ -68,11 +69,10 @@
       font-size: 90px;
       /* font-family: "nazi"; */
       font-family: 'Oswald', sans-serif;
-      letter-spacing: 29px;
+      letter-spacing: 10px;
       background-color: rgba(0, 0, 0, .5);
       color: white;
       text-transform: uppercase;
-
       text-align: center;
 
     }
@@ -166,12 +166,6 @@
 
     }
 
-    .start:hover {
-      background-color: black;
-      border: 4px solid rgb(99, 168, 21);
-      color: white;
-    }
-
     .area {
       margin-top: 50px;
       margin-bottom: 100px;
@@ -181,7 +175,11 @@
 
     }
 
-
+    start:hover {
+      background-color: black;
+      border: 4px solid rgb(99, 168, 21);
+      color: white;
+    }
 
     .zagadka p {
       margin-top: 25px;
@@ -251,12 +249,16 @@
     }
 
     @media (max-width: 736px) and (orientation: landscape) {
+      header {
+        max-width: 100vw;
+      }
+
       header img {
         width: 15%;
       }
 
       header h1 {
-        font-size: 45px;
+        font-size: 26px;
       }
     }
 
@@ -269,6 +271,19 @@
       header button {
         right: 20px;
       }
+
+      header div {
+
+        left: 50px;
+      }
+
+      header div span {
+
+        letter-spacing: 2px;
+        font-size: 22px;
+        left: 50px;
+
+      }
     }
 
     @media (max-width: 533px) and (orientation: landscape) {
@@ -276,6 +291,11 @@
       header h1 {
         top: 40%;
         font-size: 20px;
+      }
+
+      header div span {
+        font-size: 19px;
+        left: 50px;
       }
 
       header button {
@@ -290,10 +310,25 @@
         width: 30%;
       }
 
+      .logo {
+
+        width: 23%;
+      }
+
       header h1 {
         top: 35%;
-        font-size: 30px;
+        font-size: 25px;
         line-height: 180%;
+      }
+
+      header div {
+        font-size: 19px;
+        left: 50px;
+      }
+
+      header div span {
+        font-size: 19px;
+        left: 50px;
       }
 
       header button {
@@ -310,6 +345,16 @@
         top: 40%;
         font-size: 24px;
 
+      }
+
+      header div {
+
+        left: 32px;
+      }
+
+      header div span {
+        font-size: 19px;
+        left: 50px;
       }
 
       header button {

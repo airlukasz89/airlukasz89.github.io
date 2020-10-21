@@ -3,7 +3,7 @@
 const btnMes1 = document.querySelector('.hey');
 const spnText1 = document.querySelector('.text1');
 const spnCursor1 = document.querySelector('.cursor1');
-const txt1 = ['Cześć!', 'Jesteś słowianinem?', 'Płynie w Tobie słowiańska krew?', 'Szukasz ludzi takich jak my?', 'Uważasz, że coś jest na rzeczy a nie wiesz co?', 'Cenisz sobie duchowy rozwój a psylocybinowe doznania tylko to potwierdziły?', 'Pomożemy!!!']
+const txt1 = ['Cześć!', 'Jesteś słowianinem?', 'Płynie w Tobie słowiańska krew?', 'Szukasz ludzi takich jak my?', 'Uważasz, że coś jest na rzeczy a nie wiesz co?', 'Cenisz sobie duchowy rozwój a psylocybinowe doznania tylko to potwierdziły?', 'Pomożemy!!!', 'Zapoznaj się tylko z dalszą treścią strony, a ukojenie powróci!', '']
 
 let activeLetter1 = -15;
 let activeText1 = 0;
