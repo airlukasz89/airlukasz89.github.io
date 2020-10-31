@@ -1,0 +1,15 @@
+.grid {
+  margin: 5%;
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-template-rows: repeat(3, 100px);
+  grid-gap: 15px;
+  position: relative;
+  background-color: gray;
+  z-index: -2;
+  justify-content: center;
+}
+
+.item {
+  background-color: blue;
+}
