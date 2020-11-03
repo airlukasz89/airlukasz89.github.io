@@ -224,9 +224,6 @@ footer {
 }
 
 @media (max-width: 812px) and (orientation: landscape) {
- header img {
-   /* width: 25%;*/
- }
 
  header h1 {
    font-size: 26px;

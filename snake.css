@@ -1,3 +1,11 @@
+
+/* .clearfix::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+ */
+
 .grid {
   margin: 5%;
   display: grid;
@@ -12,4 +20,25 @@
 
 .item {
   background-color: blue;
+}
+
+
+
+
+
+
+
+.row, .column {
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  
+}
+
+
+.column{
+  font-size: 0;
+} 
+.row{
+  font-size: 16px;
 }

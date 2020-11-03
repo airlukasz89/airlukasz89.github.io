@@ -55,14 +55,54 @@
       <div class="item"></div>
       <div class="item"></div>
     </div>
+
+    <div id="snake"></div>
   </section>
   <footer>&copy; Anakonda Corporation</footer>
   <script src="main.js"></script>
   <script src="main2.js"></script>
-  <script src="main3.js"></script>
+
   <script src="Display.js"></script>
   <script src="Pixel.js"></script>
 
+  <script>
+    let snakeElement = document.getElementById("snake");
+    let snake = [{
+        x: 0,
+        y: 0
+      },
+      {
+        x: 1,
+        y: 0
+      },
+      {
+        x: 2,
+        y: 0
+      },
+    ];
+
+    let width = 30;
+    let height = 30;
+    let right = true;
+
+    let snakeMoveInterval = setInterval(function () {
+      let display = new Display(height, width);
+
+      for (let i = 0; i < snake.length; i++) {
+        display.changeColor(snake[i].x, snake[i].y, "green");
+        snake[i].x += (1 * (right ? 1 : -1));
+
+        console.log(i + ": " + snake[i].x);
+      }
+
+      display.render(snakeElement);
+
+      if (snake.some(segment => segment.x == 0) ||
+        snake.some(segment => segment.x == width - 1)) {
+        right = !right;
+      }
+    }, 100);
+  </script>
 </body>
 
 </html>
