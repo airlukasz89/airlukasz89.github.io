@@ -57,6 +57,12 @@
     </div>
 
     <div id="snake"></div>
+    <div class="wrapper">
+      <div class="buttonUp"></div>
+      <div class="buttonRight"></div>
+      <div class="buttonDown"></div>
+      <div class="buttonLeft"></div>
+    </div>
   </section>
   <footer>&copy; Anakonda Corporation</footer>
   <script src="main.js"></script>
@@ -79,6 +85,46 @@
         x: 2,
         y: 0
       },
+      {
+        x: 3,
+        y: 0
+      },
+      {
+        x: 4,
+        y: 0
+      },
+      {
+        x: 5,
+        y: 0
+      },
+      {
+        x: 6,
+        y: 0
+      },
+      {
+        x: 7,
+        y: 0
+      },
+      {
+        x: 8,
+        y: 0
+      },
+      {
+        x: 8,
+        y: 1
+      },
+      {
+        x: 8,
+        y: 2
+      },
+      {
+        x: 8,
+        y: 3
+      },
+      {
+        x: 8,
+        y: 4
+      },
     ];
 
     let width = 30;
@@ -92,7 +138,7 @@
         display.changeColor(snake[i].x, snake[i].y, "green");
         snake[i].x += (1 * (right ? 1 : -1));
 
-        console.log(i + ": " + snake[i].x);
+        // console.log(i + ": " + snake[i].x);
       }
 
       display.render(snakeElement);
