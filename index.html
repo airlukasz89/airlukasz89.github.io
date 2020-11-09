@@ -57,11 +57,11 @@
     </div>
 
     <div id="snake"></div>
-    <div class="wrapper">
-      <div class="buttonUp"></div>
-      <div class="buttonRight"></div>
-      <div class="buttonDown"></div>
-      <div class="buttonLeft"></div>
+    <div class="buttons">
+      <div class="up">up</div>
+      <div class="right">right</div>
+      <div class="down">down</div>
+      <div class="left">left</div>
     </div>
   </section>
   <footer>&copy; Anakonda Corporation</footer>
@@ -70,6 +70,7 @@
 
   <script src="Display.js"></script>
   <script src="Pixel.js"></script>
+  <script src="InputManager.js"></script>
 
   <script>
     let snakeElement = document.getElementById("snake");
@@ -148,6 +149,19 @@
         right = !right;
       }
     }, 100);
+
+    let buttonUp = document.getElementsByClassName('up')[0];
+    let buttonDown = document.getElementsByClassName('down')[0];
+    let buttonRight = document.getElementsByClassName('right')[0];
+    let buttonLeft = document.getElementsByClassName('left')[0];
+
+
+    let inputManager = new InputManager(buttonUp, buttonRight, buttonDown, buttonLeft);
+
+    setInterval(function () {
+      let lastDirection = inputManager.getLastClickedButton();
+      console.log(lastDirection);
+    }, 3000);
   </script>
 </body>
 
