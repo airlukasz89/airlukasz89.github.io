@@ -181,13 +181,44 @@
     setInterval(() => {
       let display = new Display(height, width);
 
-      if (inputManager.getLastClickedButton() == "down") {
+      var diffVector;
+      var direction = inputManager.getLastClickedButton();
+
+      switch (direction) {
+        case 'down':
+          diffVector = {
+            x: 0,
+            y: 1
+          }
+          break;
+        case 'up':
+          diffVector = {
+            x: 0,
+            y: -1
+          }
+          break;
+        case 'left':
+          diffVector = {
+            x: -1,
+            y: 0
+          }
+          break;
+        case 'right':
+          diffVector = {
+            x: 1,
+            y: 0
+          }
+          break;
+      }
+
+      if (!!direction) {
         let current;
         current = head;
 
         let previousData = {};
         previousData = Object.assign(previousData, current.data);
-        current.data.y++;
+        current.data.y += diffVector.y;
+        current.data.x += diffVector.x;
 
         current = current.next;
 
