@@ -30,6 +30,8 @@ class Display {
     this.render = (element) => {
       let container = document.createElement("div");
       container.className = "container";
+      let elementWidth = element.offsetWidth;
+      let pixelSize = elementWidth / _width;
 
       for (let x = 0; x < _width; x++) {
         const column = document.createElement("div");
@@ -41,6 +43,8 @@ class Display {
 
           let pixel = _getPixel(x, y);
           row.style.backgroundColor = pixel.color;
+          row.style.width = pixelSize + "px";
+          row.style.height = pixelSize + "px";
 
           column.appendChild(row);
         }
