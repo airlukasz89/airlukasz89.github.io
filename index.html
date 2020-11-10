@@ -180,18 +180,20 @@
 
     setInterval(() => {
       let display = new Display(height, width);
-      let current;
 
       if (inputManager.getLastClickedButton() == "down") {
-        let current = head;
+        let current;
+        current = head;
 
-        let previousData = current.data;
+        let previousData = {};
+        previousData = Object.assign(previousData, current.data);
         current.data.y++;
 
         current = current.next;
 
         while (current != null) {
-          let currentData = current.data;
+          let currentData = {};
+          currentData = Object.assign(currentData, current.data);
           current.data = previousData;
           previousData = currentData;
 
