@@ -31,7 +31,8 @@ class Display {
       let container = document.createElement("div");
       container.className = "container";
       let elementWidth = element.offsetWidth;
-      let pixelSize = elementWidth / _width;
+      let pixelSize = (elementWidth / _width);
+      pixelSize = Math.floor(pixelSize); //zaokrąglenie do 2 miejsc
 
       for (let x = 0; x < _width; x++) {
         const column = document.createElement("div");

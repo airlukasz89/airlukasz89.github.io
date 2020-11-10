@@ -124,23 +124,23 @@
     let height = 30;
     let right = true;
 
-    // let snakeMoveInterval = setInterval(function () {
-    let display = new Display(height, width);
+    let snakeMoveInterval = setInterval(function () {
+      let display = new Display(height, width);
 
-    for (let i = 0; i < snake.length; i++) {
-      display.changeColor(snake[i].x, snake[i].y, "green");
-      snake[i].x += (1 * (right ? 1 : -1));
+      for (let i = 0; i < snake.length; i++) {
+        display.changeColor(snake[i].x, snake[i].y, "green");
+        snake[i].x += (1 * (right ? 1 : -1));
 
-      // console.log(i + ": " + snake[i].x);
-    }
+        // console.log(i + ": " + snake[i].x);
+      }
 
-    display.render(snakeElement);
+      display.render(snakeElement);
 
-    if (snake.some(segment => segment.x == 0) ||
-      snake.some(segment => segment.x == width - 1)) {
-      right = !right;
-    }
-    // }, 100);
+      if (snake.some(segment => segment.x == 0) ||
+        snake.some(segment => segment.x == width - 1)) {
+        right = !right;
+      }
+    }, 100);
 
     let buttonUp = document.getElementsByClassName('up')[0];
     let buttonDown = document.getElementsByClassName('down')[0];
