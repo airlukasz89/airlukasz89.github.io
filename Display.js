@@ -24,6 +24,11 @@ class Display {
     // this.changeColor(4, 9, "green");
     this.changeColor = (x, y, color) => {
       let pixel = _getPixel(x, y);
+
+      if (!pixel) {
+        return;
+      }
+
       pixel.color = color;
     }
 
