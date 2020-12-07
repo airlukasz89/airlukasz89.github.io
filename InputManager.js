@@ -14,7 +14,7 @@ class InputManager {
         let _addClickedListener = (button) => {
             button.addEventListener('click', (e) => {
                 let div = e.target;
-                _divChosen = div.className;
+                _divChosen = Directions.GetDirection(div.className);
 
             })
         }

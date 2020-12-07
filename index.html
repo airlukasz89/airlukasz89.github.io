@@ -61,6 +61,7 @@
   <script src="main2.js"></script>
 
   <script src="Display.js"></script>
+  <script src="Directions.js"></script>
   <script src="Pixel.js"></script>
   <script src="InputManager.js"></script>
   <script src="SnakeSegment.js"></script>
@@ -69,10 +70,15 @@
 
   <script>
     let snakeElement = document.getElementById("snake");
+    let buttonUp = document.getElementsByClassName('up')[0];
+    let buttonDown = document.getElementsByClassName('down')[0];
+    let buttonRight = document.getElementsByClassName('right')[0];
+    let buttonLeft = document.getElementsByClassName('left')[0];
 
     let width = 30;
     let height = 30;
-    const game = new Game(height, width, snakeElement);
+
+    const game = new Game(height, width, snakeElement, buttonUp, buttonDown, buttonRight, buttonLeft);
     game.start();
   </script>
 

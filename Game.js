@@ -1,10 +1,12 @@
 class Game {
-    constructor(height, width, htmlElement) {
+    constructor(height, width, htmlElement, buttonUp, buttonRight, buttonDown, buttonLeft) {
         let _display = new Display(height, width);
         let _htmlElement = htmlElement;
         let _snake = new Snake(width / 2, height / 2);
+        let _inputManager = new InputManager(buttonUp, buttonRight, buttonDown, buttonLeft);
         this.update = () => {
-            console.log(Date.now());
+
+            console.log(_inputManager.getLastClickedButton());
         }
         this.render = () => {
             let head = _snake.getHead();
