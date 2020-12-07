@@ -63,66 +63,25 @@
   <script src="Display.js"></script>
   <script src="Pixel.js"></script>
   <script src="InputManager.js"></script>
-
+  <script src="Game.js"></script>
   <script>
     let snakeElement = document.getElementById("snake");
-    let snake = [{
-        x: 0,
-        y: 0
-      },
-      {
-        x: 1,
-        y: 0
-      },
-      {
-        x: 2,
-        y: 0
-      },
-      {
-        x: 3,
-        y: 0
-      },
-      {
-        x: 4,
-        y: 0
-      },
-      {
-        x: 5,
-        y: 0
-      },
-      {
-        x: 6,
-        y: 0
-      },
-      {
-        x: 7,
-        y: 0
-      },
-      {
-        x: 8,
-        y: 0
-      },
-      {
-        x: 8,
-        y: 1
-      },
-      {
-        x: 8,
-        y: 2
-      },
-      {
-        x: 8,
-        y: 3
-      },
-      {
-        x: 8,
-        y: 4
-      },
-    ];
 
     let width = 30;
     let height = 30;
-    let right = true;
+    const game = new Game(height, width, snakeElement);
+    game.start();
+  </script>
+
+
+
+
+  <script>
+    return;
+    let snakeElement = document.getElementById("snake");
+
+    let width = 30;
+    let height = 30;
 
     // let snakeMoveInterval = setInterval(function () {
     //   let display = new Display(height, width);
@@ -150,10 +109,10 @@
 
     let inputManager = new InputManager(buttonUp, buttonRight, buttonDown, buttonLeft);
 
-    setInterval(function () {
-      let lastDirection = inputManager.getLastClickedButton();
-      console.log(lastDirection);
-    }, 3000);
+    // setInterval(function () {
+    //   let lastDirection = inputManager.getLastClickedButton();
+    //   console.log(lastDirection);
+    // }, 3000);
 
     /******************************/
     let tail = {
