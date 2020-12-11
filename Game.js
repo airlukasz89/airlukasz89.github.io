@@ -4,14 +4,16 @@ class Game {
         let _htmlElement = htmlElement;
         let _snake = new Snake(width / 2, height / 2);
         let _inputManager = new InputManager(buttonUp, buttonRight, buttonDown, buttonLeft);
-        this.update = () => {
+        this.updateLogic = () => {
+            let snakeDirection = _inputManager.getLastClickedButton();
+            _snake.move(snakeDirection);
 
-            console.log(_inputManager.getLastClickedButton());
         }
         this.render = () => {
             let head = _snake.getHead();
             _display.changeColor(head.getX(), head.getY(), 'green');
             _display.render(_htmlElement);
+
 
         }
 
@@ -19,11 +21,11 @@ class Game {
 
         this.start = () => {
             setInterval(() => {
-                this.update();
+                this.updateLogic();
                 this.render();
 
 
-            }, 500);
+            }, 1000);
 
         }
         //kierunki
