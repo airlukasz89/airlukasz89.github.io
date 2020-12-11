@@ -19,6 +19,11 @@ class Display {
       });
     };
 
+    this.clear = () => {
+      _pixels = [];
+      _init();
+    }
+
     _init();
     //TODO tymczasowy
     // this.changeColor(4, 9, "green");

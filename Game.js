@@ -11,6 +11,7 @@ class Game {
         }
         this.render = () => {
             let head = _snake.getHead();
+            _display.clear();
             _display.changeColor(head.getX(), head.getY(), 'green');
             _display.render(_htmlElement);
 

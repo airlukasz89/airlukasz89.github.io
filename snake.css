@@ -10,7 +10,9 @@
 
 
 
-
+#snake {
+  max-width: 300px;
+}
 
 .column {
 

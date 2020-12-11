@@ -6,8 +6,19 @@ class Snake {
 
         };
         this.move = (direction) => {
-            _head = new SnakeSegment(_head.getX() + 1, _head.getY(), null);
-
+            //_head = new SnakeSegment(_head.getX() + 1, _head.getY(), null);
+            if (direction === Directions.Right) {
+                _head = new SnakeSegment(_head.getX() + 1, _head.getY(), null);
+            }
+            if (direction === Directions.Left) {
+                _head = new SnakeSegment(_head.getX() - 1, _head.getY(), null);
+            }
+            if (direction === Directions.Up) {
+                _head = new SnakeSegment(_head.getX(), _head.getY() - 1, null);
+            }
+            if (direction === Directions.Down) {
+                _head = new SnakeSegment(_head.getX(), _head.getY() + 1, null);
+            }
         }
     }
 
