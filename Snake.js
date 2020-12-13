@@ -20,6 +20,10 @@ class Snake {
                 _head = new SnakeSegment(_head.getX(), _head.getY() + 1, null);
             }
         }
+
+        this.eatApple = (apple) => {
+
+        }
     }
 
 }
