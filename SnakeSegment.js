@@ -6,9 +6,11 @@ class SnakeSegment {
         this.getX = () => {
             return _x;
         };
-
         this.getY = () => {
             return _y;
+        }
+        this.getNext = () => {
+            return _next;
         }
     }
 }

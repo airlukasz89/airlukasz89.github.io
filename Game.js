@@ -17,45 +17,54 @@ class Game {
         }
         _initApples();
 
-        this.updateLogic = () => {
-            let snakeDirection = _inputManager.getLastClickedButton();
-            let head = _snake.getHead();
-
-            _snake.move(snakeDirection);
-
-            let appleToEat = null;
-            for (const apple of _applesArray) {
-                if (apple.getX() === head.getX()) {
-                    if (apple.getY() === head.getY()) {
-                        appleToEat = apple;
-                        brake;
-                    }
-                }
-
-            }
-            _snake.eatApple(appleToEat)
+        let _tryEatApple = () => {
 
         }
 
-        this.render = () => {
+        this.updateLogic = () => {
+            let snakeDirection = _inputManager.getLastClickedButton();
+
             let head = _snake.getHead();
-            _display.clear();
-            _display.changeColor(head.getX(), head.getY(), 'green');
+            let snakeTmp = new Snake(head.getX(), head.getY());
+            snakeTmp.move(snakeDirection);
+            head = snakeTmp.getHead();
+
+            let appleToEat = null;
             for (const apple of _applesArray) {
-                _display.changeColor(apple.getX(), apple.getY(), "pink");
-                console.log(apple);
+                if (apple.getX() === head.getX() &&
+                    apple.getY() === head.getY()) {
+                    appleToEat = apple;
+                    console.log("mniam")
+                    break;
+                }
+            }
+
+            if (appleToEat) {
+                _snake.eatApple(appleToEat);
+            } else {
+                _snake.move(snakeDirection);
+            }
+        }
+
+        this.render = () => {
+            _display.clear();
+
+            let head = _snake.getHead();
+            while (head) {
+                _display.changeColor(head.getX(), head.getY(), 'green');
+                head = head.getNext();
+            }
+
+            for (const apple of _applesArray) {
+                _display.changeColor(apple.getX(), apple.getY(), "red");
             }
             _display.render(_htmlElement);
-
-
         }
 
         this.start = () => {
             setInterval(() => {
                 this.updateLogic();
                 this.render();
-
-
             }, 400);
         }
     }
