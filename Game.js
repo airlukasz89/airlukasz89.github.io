@@ -17,10 +17,6 @@ class Game {
         }
         _initApples();
 
-        let _tryEatApple = () => {
-
-        }
-
         this.updateLogic = () => {
             let snakeDirection = _inputManager.getLastClickedButton();
 
@@ -41,9 +37,12 @@ class Game {
 
             if (appleToEat) {
                 _snake.eatApple(appleToEat);
+                _applesArray.splice(_applesArray.indexOf(appleToEat), 1);
             } else {
                 _snake.move(snakeDirection);
             }
+
+            console.log("Snake length: " + +_snake.getLength());
         }
 
         this.render = () => {

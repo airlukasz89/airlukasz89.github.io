@@ -12,5 +12,8 @@ class SnakeSegment {
         this.getNext = () => {
             return _next;
         }
+        this.removeNext = () => {
+            _next = null;
+        }
     }
 }
