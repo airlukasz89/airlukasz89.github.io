@@ -2,31 +2,60 @@ class Snake {
     constructor(headX, headY) {
         let _head = new SnakeSegment(headX, headY, null);
 
+        let _getMoveDiffVector = (direction) => {
+            var diffVector = { x: 0, y : 0 };
+            if (direction === Directions.Right) {
+                diffVector = { x: 1, y: 0 };
+            }
+            if (direction === Directions.Left) {
+                diffVector = { x: -1, y: 0 };
+            }
+            if (direction === Directions.Up) {
+                diffVector = { x: 0, y: -1 };
+            }
+            if (direction === Directions.Down) {
+                diffVector = { x: 0, y: 1 };
+            }
+            return diffVector;
+        }
+
         this.getHead = () => {
             return _head;
-
         };
 
         this.move = (direction) => {
-            if (direction === Directions.Right) {
-                //TODO
-                _head = new SnakeSegment(_head.getX() + 1, _head.getY(), _head.getNext());
+            let diffVector = _getMoveDiffVector(direction);
+
+            console.log(this.getLength())
+            let newHead = new SnakeSegment(_head.getX() + diffVector.x, _head.getY() + diffVector.y, _head);
+            let head = newHead;
+            while(head)
+            {
+                if(!!head.getNext() && !head.getNext().getNext())
+                {
+                    head.setNext(null);
+                    break;
+                }
+                head = head.getNext();
             }
-            if (direction === Directions.Left) {
-                _head = new SnakeSegment(_head.getX() - 1, _head.getY(), _head.getNext());
-            }
-            if (direction === Directions.Up) {
-                _head = new SnakeSegment(_head.getX(), _head.getY() - 1, _head.getNext());
-            }
-            if (direction === Directions.Down) {
-                _head = new SnakeSegment(_head.getX(), _head.getY() + 1, _head.getNext());
-            }
+            _head = newHead;
+            console.log(this.getLength())
         }
 
         this.eatApple = (apple) => {
             let newHead = new SnakeSegment(apple.getX(), apple.getY(), _head);
             _head = newHead;
         }
+        
+        this.getLength = () => {
+            let length = 0;
+            let head = _head;
+            while(head)
+            {
+                length++;
+                head = head.getNext();
+            }
+            return length;
+        }
     }
-
 }
