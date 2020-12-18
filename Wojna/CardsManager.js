@@ -5,20 +5,23 @@ class CardsManager {
         let _cardsComputer = [];
         let _usedCardsPlayer = [];
         let _usedCardsComputer = [];
-        let _chosenPlayerCard = null;
-        let _chosenComputerCard = null;
-        let _playerPoints = 0;
+        let _chosenPlayerCards = [];
+        let _chosenComputerCards = [];
 
 
         this.generateCards = () => {
-            for (let i = 1; i <= 104; i++) {
+            for (let i = 1; i <= 52; i++) {
+                _cardsAll.push(new Card(i));
+            }
+            for (let i = 1; i <= 52; i++) {
                 _cardsAll.push(new Card(i));
             }
 
         }
 
         this.giveCards = () => {
-            for (let i = 1; i <= _cardsAll.length; i++) {
+            let allCardsLength = _cardsAll.length;
+            for (let i = 1; i <= allCardsLength; i++) {
                 let randomIndex = Math.floor(Math.random() * _cardsAll.length);
                 let randomCard = _cardsAll[randomIndex];
                 if (i % 2 !== 0) {
@@ -26,26 +29,104 @@ class CardsManager {
                 } else {
                     _cardsComputer.push(randomCard);
                 }
+                _cardsAll.splice(randomIndex, 1);
+            }
+            console.log(_cardsAll.length);
+        }
+
+        this.clearCards = () => {
+            _cardsAll = [];
+            _cardsPlayer = [];
+            _cardsComputer = [];
+            _usedCardsPlayer = [];
+            _usedCardsComputer = [];
+            _chosenPlayerCards = [];
+            _chosenComputerCards = [];
+        }
 
 
+        let _checkChosenCardsResult = () => {
+            let topPlayerCardValue = _chosenPlayerCards[_chosenPlayerCards.length - 1].getValue();
+            let topComputerCardValue = _chosenComputerCards[_chosenComputerCards.length - 1].getValue();
 
+            if (topPlayerCardValue > topComputerCardValue) {
+                return TurnResult.PlayerWin;
+
+            }
+            if (topPlayerCardValue < topComputerCardValue) {
+                return TurnResult.ComputerWin;
+            }
+            if (topPlayerCardValue === topComputerCardValue) {
+                return TurnResult.Draw;
             }
         }
-        this.makeNextTurn = () => {
-            _chosenPlayerCard = _cardsPlayer.pop();
-            _chosenComputerCard = _cardsComputer.pop();
-            if (_chosenPlayerCard.getValue() > _chosenComputerCard.getValue()) {
-                _playerPoints++;
+
+        let _tryTransferUsedCardsToPlayers = () => {
+            if (_cardsPlayer.length === 0) {
+                _cardsPlayer.push(_usedCardsPlayer);
+                _usedCardsPlayer = [];
+
+            } else if (_cardsComputer.length === 0) {
+                _cardsComputer.push(_usedCardsComputer);
+                _usedCardsComputer = [];
+            }
+        }
+
+        let _checkIfGameIsOver = () => {
+            if (_cardsPlayer.length === 0 || _cardsComputer.length === 0) {
+                return true;
+            }
+            return false;
+        }
+
+        let _logCards = () => {
+            console.log('_cardsAll ' + _cardsAll.length);
+            console.log('_cardsComputer ' + _cardsComputer.length);
+            console.log('_cardsPlayer ' + _cardsPlayer.length);
+            console.log('_usedCardsPlayer ' + _usedCardsPlayer.length);
+            console.log('_usedCardsComputer ' + _usedCardsComputer.length);
+            console.log('_chosenPlayerCards ' + _chosenPlayerCards.length);
+            console.log('_chosenComputerCards ' + _chosenComputerCards.length);
+        }
+
+
+        this.makeNextTurn = (amountCardToTake) => {
+            for (let i = 0; i < amountCardToTake; i++) {
+                _chosenPlayerCards.push(_cardsPlayer.pop());
+                _chosenComputerCards.push(_cardsComputer.pop());
             }
 
-            _usedCardsPlayer.push(_chosenPlayerCard);
-            _usedCardsComputer.push(_chosenComputerCard);
+            let result = _checkChosenCardsResult();
+
+
+            if (result === TurnResult.PlayerWin) {
+                _usedCardsPlayer.push(_chosenComputerCards);
+                _chosenComputerCards = [];
+                _usedCardsPlayer.push(_chosenPlayerCards);
+                _chosenPlayerCards = [];
+                console.log('wygrałeś');
+            }
+
+            if (result === TurnResult.ComputerWin) {
+                _usedCardsComputer.push(_chosenPlayerCards);
+                _chosenPlayerCards = [];
+                _usedCardsComputer.push(_chosenComputerCards);
+                _chosenComputerCards = [];
+                console.log('przegrałeś');
+            }
+
+            if (result === TurnResult.Draw) {
+                console.log('remisss!!!');
+                this.makeNextTurn(amountCardToTake + 1);
+            }
 
 
 
-            console.log(_chosenPlayerCard.getValue());
-            console.log(_chosenComputerCard.getValue());
 
+            _tryTransferUsedCardsToPlayers();
+            _logCards();
+
+            return _checkIfGameIsOver();
         }
     }
 }
