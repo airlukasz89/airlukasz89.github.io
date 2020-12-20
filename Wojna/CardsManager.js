@@ -93,6 +93,7 @@ class CardsManager {
 
 
         this.makeNextTurn = (amountCardToTake) => {
+            console.log('--------------------------------------')
             for (let i = 0; i < amountCardToTake; i++) {
                 _chosenPlayerCards.push(_cardsPlayer.pop());
                 _chosenComputerCards.push(_cardsComputer.pop());
@@ -122,12 +123,10 @@ class CardsManager {
                 this.makeNextTurn(amountCardToTake + 1);
             }
 
-
-
-
             _tryTransferUsedCardsToPlayers();
             _logCards();
 
+            console.log('--------------------------------------')
             return _checkIfGameIsOver();
         }
     }
