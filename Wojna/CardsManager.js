@@ -10,10 +10,10 @@ class CardsManager {
 
 
         this.generateCards = () => {
-            for (let i = 1; i <= 52; i++) {
+            for (let i = 1; i <= 6; i++) {
                 _cardsAll.push(new Card(i));
             }
-            for (let i = 1; i <= 52; i++) {
+            for (let i = 1; i <= 6; i++) {
                 _cardsAll.push(new Card(i));
             }
 
@@ -63,11 +63,13 @@ class CardsManager {
 
         let _tryTransferUsedCardsToPlayers = () => {
             if (_cardsPlayer.length === 0) {
-                _cardsPlayer.push(_usedCardsPlayer);
+                _cardsPlayer = [..._usedCardsPlayer];
                 _usedCardsPlayer = [];
 
-            } else if (_cardsComputer.length === 0) {
-                _cardsComputer.push(_usedCardsComputer);
+            }
+
+            if (_cardsComputer.length === 0) {
+                _cardsComputer = [..._usedCardsComputer];
                 _usedCardsComputer = [];
             }
         }
@@ -100,17 +102,17 @@ class CardsManager {
 
 
             if (result === TurnResult.PlayerWin) {
-                _usedCardsPlayer.push(_chosenComputerCards);
+                _usedCardsPlayer = _usedCardsPlayer.concat(_chosenComputerCards);
                 _chosenComputerCards = [];
-                _usedCardsPlayer.push(_chosenPlayerCards);
+                _usedCardsPlayer = _usedCardsPlayer.concat(_chosenPlayerCards);
                 _chosenPlayerCards = [];
                 console.log('wygrałeś');
             }
 
             if (result === TurnResult.ComputerWin) {
-                _usedCardsComputer.push(_chosenPlayerCards);
+                _usedCardsComputer = _usedCardsComputer.concat(_chosenPlayerCards);
                 _chosenPlayerCards = [];
-                _usedCardsComputer.push(_chosenComputerCards);
+                _usedCardsComputer = _usedCardsComputer.concat(_chosenComputerCards);
                 _chosenComputerCards = [];
                 console.log('przegrałeś');
             }
