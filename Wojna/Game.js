@@ -22,6 +22,8 @@ class Game {
                 _isGameStarted = false;
                 console.log('koniec gry!!!');
             }
+
+
         });
 
 

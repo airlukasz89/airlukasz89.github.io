@@ -3,17 +3,15 @@ class CardsManager {
         let _cardsAll = [];
         let _cardsPlayer = [];
         let _cardsComputer = [];
-        let _usedCardsPlayer = [];
-        let _usedCardsComputer = [];
         let _chosenPlayerCards = [];
         let _chosenComputerCards = [];
 
 
         this.generateCards = () => {
-            for (let i = 1; i <= 6; i++) {
+            for (let i = 1; i <= 52; i++) {
                 _cardsAll.push(new Card(i));
             }
-            for (let i = 1; i <= 6; i++) {
+            for (let i = 1; i <= 52; i++) {
                 _cardsAll.push(new Card(i));
             }
 
@@ -38,8 +36,6 @@ class CardsManager {
             _cardsAll = [];
             _cardsPlayer = [];
             _cardsComputer = [];
-            _usedCardsPlayer = [];
-            _usedCardsComputer = [];
             _chosenPlayerCards = [];
             _chosenComputerCards = [];
         }
@@ -48,6 +44,9 @@ class CardsManager {
         let _checkChosenCardsResult = () => {
             let topPlayerCardValue = _chosenPlayerCards[_chosenPlayerCards.length - 1].getValue();
             let topComputerCardValue = _chosenComputerCards[_chosenComputerCards.length - 1].getValue();
+
+            console.log('PLAYER:' + topPlayerCardValue);
+            console.log('COMPUTER:' + topComputerCardValue);
 
             if (topPlayerCardValue > topComputerCardValue) {
                 return TurnResult.PlayerWin;
@@ -58,19 +57,6 @@ class CardsManager {
             }
             if (topPlayerCardValue === topComputerCardValue) {
                 return TurnResult.Draw;
-            }
-        }
-
-        let _tryTransferUsedCardsToPlayers = () => {
-            if (_cardsPlayer.length === 0) {
-                _cardsPlayer = [..._usedCardsPlayer];
-                _usedCardsPlayer = [];
-
-            }
-
-            if (_cardsComputer.length === 0) {
-                _cardsComputer = [..._usedCardsComputer];
-                _usedCardsComputer = [];
             }
         }
 
@@ -85,14 +71,13 @@ class CardsManager {
             console.log('_cardsAll ' + _cardsAll.length);
             console.log('_cardsComputer ' + _cardsComputer.length);
             console.log('_cardsPlayer ' + _cardsPlayer.length);
-            console.log('_usedCardsPlayer ' + _usedCardsPlayer.length);
-            console.log('_usedCardsComputer ' + _usedCardsComputer.length);
             console.log('_chosenPlayerCards ' + _chosenPlayerCards.length);
             console.log('_chosenComputerCards ' + _chosenComputerCards.length);
         }
 
 
         this.makeNextTurn = (amountCardToTake) => {
+
             console.log('--------------------------------------')
             for (let i = 0; i < amountCardToTake; i++) {
                 _chosenPlayerCards.push(_cardsPlayer.pop());
@@ -103,27 +88,31 @@ class CardsManager {
 
 
             if (result === TurnResult.PlayerWin) {
-                _usedCardsPlayer = _usedCardsPlayer.concat(_chosenComputerCards);
+                _cardsPlayer = _chosenComputerCards.concat(_cardsPlayer);
                 _chosenComputerCards = [];
-                _usedCardsPlayer = _usedCardsPlayer.concat(_chosenPlayerCards);
+                _cardsPlayer = _chosenPlayerCards.concat(_cardsPlayer);
                 _chosenPlayerCards = [];
                 console.log('wygrałeś');
             }
 
             if (result === TurnResult.ComputerWin) {
-                _usedCardsComputer = _usedCardsComputer.concat(_chosenPlayerCards);
+                _cardsComputer = _chosenPlayerCards.concat(_cardsComputer);
                 _chosenPlayerCards = [];
-                _usedCardsComputer = _usedCardsComputer.concat(_chosenComputerCards);
+                _cardsComputer = _chosenComputerCards.concat(_cardsComputer);
                 _chosenComputerCards = [];
                 console.log('przegrałeś');
             }
 
             if (result === TurnResult.Draw) {
                 console.log('remisss!!!');
-                this.makeNextTurn(amountCardToTake + 1);
+                let drawAmountCardToTake = amountCardToTake + 1;
+                if (_cardsPlayer.length < drawAmountCardToTake ||
+                    _cardsComputer.length < drawAmountCardToTake) {
+                    return true;
+                }
+                this.makeNextTurn(drawAmountCardToTake);
             }
 
-            _tryTransferUsedCardsToPlayers();
             _logCards();
 
             console.log('--------------------------------------')
