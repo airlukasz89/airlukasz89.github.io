@@ -9,7 +9,8 @@ class Game {
 
             _cardsManager.generateCards();
             _cardsManager.giveCards();
-            _cardsManager.makeNextTurn(1);
+            _cardsManager.makeNextTurn();
+            _cardsManager.logCards();
             _isGameStarted = true;
         });
 
@@ -17,13 +18,16 @@ class Game {
         nextTurnButton.addEventListener('click', () => {
             if (!_isGameStarted) return;
 
-            if (_cardsManager.makeNextTurn(1)) {
+
+            console.log('--------------------------------------')
+            if (_cardsManager.makeNextTurn()) {
                 _cardsManager.clearCards();
                 _isGameStarted = false;
                 console.log('koniec gry!!!');
             }
 
-
+            _cardsManager.logCards();
+            console.log('--------------------------------------')
         });
 
 

@@ -5,6 +5,7 @@ class CardsManager {
         let _cardsComputer = [];
         let _chosenPlayerCards = [];
         let _chosenComputerCards = [];
+        let _amountCardToTake = 1;
 
 
         this.generateCards = () => {
@@ -67,7 +68,7 @@ class CardsManager {
             return false;
         }
 
-        let _logCards = () => {
+        this.logCards = () => {
             console.log('_cardsAll ' + _cardsAll.length);
             console.log('_cardsComputer ' + _cardsComputer.length);
             console.log('_cardsPlayer ' + _cardsPlayer.length);
@@ -76,10 +77,8 @@ class CardsManager {
         }
 
 
-        this.makeNextTurn = (amountCardToTake) => {
-
-            console.log('--------------------------------------')
-            for (let i = 0; i < amountCardToTake; i++) {
+        this.makeNextTurn = () => {
+            for (let i = 0; i < _amountCardToTake; i++) {
                 _chosenPlayerCards.push(_cardsPlayer.pop());
                 _chosenComputerCards.push(_cardsComputer.pop());
             }
@@ -92,6 +91,7 @@ class CardsManager {
                 _chosenComputerCards = [];
                 _cardsPlayer = _chosenPlayerCards.concat(_cardsPlayer);
                 _chosenPlayerCards = [];
+                _amountCardToTake = 1;
                 console.log('wygrałeś');
             }
 
@@ -100,22 +100,20 @@ class CardsManager {
                 _chosenPlayerCards = [];
                 _cardsComputer = _chosenComputerCards.concat(_cardsComputer);
                 _chosenComputerCards = [];
+                _amountCardToTake = 1;
                 console.log('przegrałeś');
             }
 
             if (result === TurnResult.Draw) {
                 console.log('remisss!!!');
-                let drawAmountCardToTake = amountCardToTake + 1;
-                if (_cardsPlayer.length < drawAmountCardToTake ||
-                    _cardsComputer.length < drawAmountCardToTake) {
+                _amountCardToTake++;
+                if (_cardsPlayer.length < _amountCardToTake ||
+                    _cardsComputer.length < _amountCardToTake) {
                     return true;
                 }
-                this.makeNextTurn(drawAmountCardToTake);
+                return false;
             }
 
-            _logCards();
-
-            console.log('--------------------------------------')
             return _checkIfGameIsOver();
         }
     }
