@@ -17,3 +17,28 @@
 [1221/121542.030:ERROR:directory_reader_win.cc(43)] FindFirstFile: System nie mo¿e odnaleŸæ okreœlonej œcie¿ki. (0x3)
 [1221/210312.296:ERROR:directory_reader_win.cc(43)] FindFirstFile: System nie mo¿e odnaleŸæ okreœlonej œcie¿ki. (0x3)
 [1221/230621.730:ERROR:directory_reader_win.cc(43)] FindFirstFile: System nie mo¿e odnaleŸæ okreœlonej œcie¿ki. (0x3)
+[1222/111652.955:ERROR:directory_reader_win.cc(43)] FindFirstFile: System nie mo¿e odnaleŸæ okreœlonej œcie¿ki. (0x3)
+[1222/113042.949:ERROR:directory_reader_win.cc(43)] FindFirstFile: System nie mo¿e odnaleŸæ okreœlonej œcie¿ki. (0x3)
+[1222/145509.911:ERROR:directory_reader_win.cc(43)] FindFirstFile: System nie mo¿e odnaleŸæ okreœlonej œcie¿ki. (0x3)
+[1227/181424.841:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[1227/182924.850:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[1227/184424.863:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[1227/185924.878:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[1227/191424.883:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[1227/192924.890:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[1227/194424.904:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[1227/195924.917:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[1227/201424.921:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[1227/202924.931:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[1227/204424.944:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[1227/205924.946:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[1227/211424.951:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[1227/212924.965:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[1227/214424.968:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[1227/215924.978:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[1228/121956.857:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[1228/122804.359:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[1228/123804.367:ERROR:crash_report_database_win.cc(496)] failed to stat report
+[1228/123804.397:ERROR:filesystem_win.cc(116)] GetFileAttributes C:\Users\anakonda\AppData\Local\Temp\.profile\Crashpad\reports\f3408efe-486b-4d85-8933-983558cd3c9d.dmp: Nie mo¿na odnaleŸæ okreœlonego pliku. (0x2)
+[1228/123804.397:ERROR:directory_reader_win.cc(43)] FindFirstFile: System nie mo¿e odnaleŸæ okreœlonej œcie¿ki. (0x3)
+[1228/204906.865:ERROR:directory_reader_win.cc(43)] FindFirstFile: System nie mo¿e odnaleŸæ okreœlonej œcie¿ki. (0x3)

@@ -9,10 +9,10 @@ class CardsManager {
 
 
         this.generateCards = () => {
-            for (let i = 1; i <= 52; i++) {
+            for (let i = 1; i <= 10; i++) {
                 _cardsAll.push(new Card(i));
             }
-            for (let i = 1; i <= 52; i++) {
+            for (let i = 1; i <= 10; i++) {
                 _cardsAll.push(new Card(i));
             }
 
@@ -111,7 +111,7 @@ class CardsManager {
                     _cardsComputer.length < _amountCardToTake) {
                     return true;
                 }
-                return false;
+                //return false;
             }
 
             return _checkIfGameIsOver();
