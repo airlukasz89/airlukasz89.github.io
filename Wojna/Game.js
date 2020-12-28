@@ -1,10 +1,13 @@
 class Game {
     constructor() {
-        let _cardsManager = new CardsManager();
         let _isGameStarted = false;
+        let _choosenPlayerImg = document.getElementById('choosenPlayer');
+        let _choosenComputerImg = document.getElementById('choosenComputer');
 
-        let startButton = document.getElementsByClassName('start')[0];
-        startButton.addEventListener('click', () => {
+        let _cardsManager = new CardsManager(_choosenPlayerImg, _choosenComputerImg);
+
+        let _startButton = document.getElementsByClassName('start')[0];
+        _startButton.addEventListener('click', () => {
             if (_isGameStarted) return;
 
             _cardsManager.generateCards();
@@ -14,8 +17,8 @@ class Game {
             _isGameStarted = true;
         });
 
-        let nextTurnButton = document.getElementsByClassName('next')[0];
-        nextTurnButton.addEventListener('click', () => {
+        let _nextTurnButton = document.getElementsByClassName('next')[0];
+        _nextTurnButton.addEventListener('click', () => {
             if (!_isGameStarted) return;
 
 

@@ -1,18 +1,20 @@
 class CardsManager {
-    constructor() {
+    constructor(playerCardImg, computerCardImg) {
         let _cardsAll = [];
         let _cardsPlayer = [];
         let _cardsComputer = [];
         let _chosenPlayerCards = [];
         let _chosenComputerCards = [];
         let _amountCardToTake = 1;
+        let _playerCardImg = playerCardImg;
+        let _computerCardImg = computerCardImg;
 
 
         this.generateCards = () => {
-            for (let i = 1; i <= 10; i++) {
+            for (let i = 2; i <= 14; i++) {
                 _cardsAll.push(new Card(i));
             }
-            for (let i = 1; i <= 10; i++) {
+            for (let i = 2; i <= 14; i++) {
                 _cardsAll.push(new Card(i));
             }
 
@@ -84,24 +86,34 @@ class CardsManager {
             }
 
             let result = _checkChosenCardsResult();
+            let topPlayerCardValue = _chosenPlayerCards[_chosenPlayerCards.length - 1].getValue();
+            let topComputerCardValue = _chosenComputerCards[_chosenComputerCards.length - 1].getValue();
+            _playerCardImg.src = `/JPEG/${topPlayerCardValue}C.jpg`;
+            _computerCardImg.src = `/JPEG/${topComputerCardValue}C.jpg`;
 
-
+            // /JPEG/blue_back.jpg
             if (result === TurnResult.PlayerWin) {
                 _cardsPlayer = _chosenComputerCards.concat(_cardsPlayer);
-                _chosenComputerCards = [];
+
                 _cardsPlayer = _chosenPlayerCards.concat(_cardsPlayer);
-                _chosenPlayerCards = [];
+
                 _amountCardToTake = 1;
                 console.log('wygrałeś');
             }
 
             if (result === TurnResult.ComputerWin) {
                 _cardsComputer = _chosenPlayerCards.concat(_cardsComputer);
-                _chosenPlayerCards = [];
+
                 _cardsComputer = _chosenComputerCards.concat(_cardsComputer);
-                _chosenComputerCards = [];
+
                 _amountCardToTake = 1;
                 console.log('przegrałeś');
+            }
+
+            if (result === TurnResult.ComputerWin || result === TurnResult.PlayerWin) {
+                _chosenComputerCards = [];
+                _chosenPlayerCards = [];
+
             }
 
             if (result === TurnResult.Draw) {
