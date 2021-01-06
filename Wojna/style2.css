@@ -31,7 +31,7 @@ body {
 }
 
 
-.cards:hover {
+.cards.is-flipped {
     transform: rotateY(180deg);
 }
 
@@ -57,7 +57,7 @@ body {
 
 
 
-.scene {
+/* .scene {
     width: 200px;
     height: 260px;
     border: 1px solid #CCC;
@@ -78,11 +78,11 @@ body {
 }
 
 .card.is-flipped {
-    transform: translateX(-100%) rotateY(-180deg);
+    transform: rotateY(180deg);
 }
 
 .card2.is-flipped {
-    transform: translateX(-100%) rotateY(-180deg);
+    transform: rotateY(180deg);
 }
 
 .card__face {
@@ -103,4 +103,4 @@ body {
 
 .card__face--back {
     transform: rotateY(180deg);
-}
+} */
