@@ -1,5 +1,5 @@
 class CardsManager {
-    constructor(playerCardImg, computerCardImg) {
+    constructor(playerCardImg, computerCardImg, playerCardImg2, computerCardImg2) {
         let _cardsAll = [];
         let _cardsPlayer = [];
         let _cardsComputer = [];
@@ -8,6 +8,9 @@ class CardsManager {
         let _amountCardToTake = 1;
         let _playerCardImg = playerCardImg;
         let _computerCardImg = computerCardImg;
+        let _playerCardImg2 = playerCardImg2;
+        let _computerCardImg2 = computerCardImg2;
+        let _isFrontCard = false;
 
 
         this.generateCards = () => {
@@ -88,8 +91,16 @@ class CardsManager {
             let result = _checkChosenCardsResult();
             let topPlayerCardValue = _chosenPlayerCards[_chosenPlayerCards.length - 1].getValue();
             let topComputerCardValue = _chosenComputerCards[_chosenComputerCards.length - 1].getValue();
-            _playerCardImg.src = `/JPEG/${topPlayerCardValue}C.jpg`;
-            _computerCardImg.src = `/JPEG/${topComputerCardValue}C.jpg`;
+
+            if (_isFrontCard) {
+                _playerCardImg.src = `/JPEG/${topPlayerCardValue}C.jpg`;
+                _computerCardImg.src = `/JPEG/${topComputerCardValue}C.jpg`;
+            } else {
+                _playerCardImg2.src = `/JPEG/${topPlayerCardValue}C.jpg`;
+                _computerCardImg2.src = `/JPEG/${topComputerCardValue}C.jpg`;
+            }
+
+            _isFrontCard = !_isFrontCard;
 
             // /JPEG/blue_back.jpg
             if (result === TurnResult.PlayerWin) {

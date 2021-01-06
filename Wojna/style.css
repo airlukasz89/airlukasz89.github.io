@@ -3,6 +3,7 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
     font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -59,7 +60,7 @@ main div img {
 .next {
     width: 300px;
     height: 40px;
-    line-height: 40px;
+    /* line-height: 40px; */
     font-size: 25px;
     text-transform: uppercase;
     border: 2px solid red;

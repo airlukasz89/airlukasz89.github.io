@@ -5,9 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css?family=Roboto&amp;subset=latin-ext" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-   
-    <title>Document5</title>
+    <link rel="stylesheet" href="style2.css">
+    <title>Document</title>
 </head>
 
 <body>
@@ -16,25 +15,56 @@
             <h1 class="text"></h1>
         </header>
         <main>
-            <div class="cards-player">
-                <h3 class="player">Twoje karty</h3>
-                <img src="/JPEG/blue_back.jpg" alt="" title="Back side player">
-                <img src="" id="choosenPlayer" alt="" title="Front side player">
+            <div class="card-container">
+                <div class="cards">
+                    <div class="side"><img src="/JPEG/blue_back.jpg" alt="J">
+                    </div>
+                    <div class="side back">Jimmy Eat World</div>
+                </div>
             </div>
 
-            <div class="cards-computer">
-                <h3 class="computer">Karty AI</h3>
-                <img src="/JPEG/Green_back.jpg" alt="" title="Back side computer">
-                <img src="" id="choosenComputer" alt="" title="Front side computer">
+
+            <div class="scene scene--card">
+                <div class="card">
+                    <img class="card__face card__face--front" src="" id="choosenPlayer" alt=""
+                        title="Front side player">
+                    <img class="card__face card__face--back" src="" id="choosenPlayer2" alt="" title="Back side player">
+                </div>
             </div>
+
+            <div class="card-container">
+                <div class="cards">
+                    <div class="side"><img src="/JPEG/Green_back.jpg" alt="J">
+                    </div>
+                    <div class="side back">Jimmy Eat World</div>
+                </div>
+            </div>
+
+            <div class="scene scene--card">
+                <div class="card2">
+                    <img class="card__face card__face--front" src="" id="choosenComputer" alt=""
+                        title="Front side computerer">
+                    <img class="card__face card__face--back" src="" id="choosenComputer2" alt=""
+                        title="Back side computer">
+                </div>
+            </div>
+
+
+
+
+
+
+
             <div class="buttons">
                 <button class="start">Start</button>
                 <button class="next">Następna karta</button>
             </div>
+
         </main>
         <footer>&copy; Anakonda's Games Incorporation Unlimited</footer>
     </div>
     <script src="main.js"></script>
+    <script src="main2.js"></script>
     <script src="Card.js"></script>
     <script src="CardsManager.js"></script>
     <script src="Game.js"></script>
