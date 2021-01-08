@@ -17,6 +17,11 @@ body {
     height: 260px;
 }
 
+.card.is-none,
+.card2.is-none {
+    display: none;
+}
+
 /* .card-container img {
     width: 70%;
 } */
@@ -27,6 +32,7 @@ body {
     position: absolute;
     transform-style: preserve-3d;
     transition: all 1s ease-in-out;
+
 
 }
 
@@ -42,7 +48,7 @@ body {
     height: 100%;
     position: absolute;
     overflow: hidden;
-
+    display: inline-block;
 }
 
 .cards .back {

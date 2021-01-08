@@ -11,6 +11,8 @@ class CardsManager {
         let _playerCardImg2 = playerCardImg2;
         let _computerCardImg2 = computerCardImg2;
         let _isFrontCard = false;
+        let _lastTurnResult = null;
+
 
 
         this.generateCards = () => {
@@ -44,6 +46,7 @@ class CardsManager {
             _cardsComputer = [];
             _chosenPlayerCards = [];
             _chosenComputerCards = [];
+
         }
 
 
@@ -66,8 +69,16 @@ class CardsManager {
             }
         }
 
-        let _checkIfGameIsOver = () => {
-            if (_cardsPlayer.length === 0 || _cardsComputer.length === 0) {
+        this.getLastTurnResult = () => {
+            return _lastTurnResult;
+        }
+
+
+
+
+
+        let _checkIfGameIsOver = (amountCardToTake) => {
+            if (_cardsPlayer.length <= amountCardToTake || _cardsComputer.length <= amountCardToTake) {
                 return true;
             }
             return false;
@@ -83,12 +94,15 @@ class CardsManager {
 
 
         this.makeNextTurn = () => {
+            if (_checkIfGameIsOver(_amountCardToTake)) return true;
+
             for (let i = 0; i < _amountCardToTake; i++) {
                 _chosenPlayerCards.push(_cardsPlayer.pop());
                 _chosenComputerCards.push(_cardsComputer.pop());
             }
 
             let result = _checkChosenCardsResult();
+            _lastTurnResult = result;
             let topPlayerCardValue = _chosenPlayerCards[_chosenPlayerCards.length - 1].getValue();
             let topComputerCardValue = _chosenComputerCards[_chosenComputerCards.length - 1].getValue();
 
@@ -109,6 +123,7 @@ class CardsManager {
                 _cardsPlayer = _chosenPlayerCards.concat(_cardsPlayer);
 
                 _amountCardToTake = 1;
+
                 console.log('wygrałeś');
             }
 
@@ -118,6 +133,7 @@ class CardsManager {
                 _cardsComputer = _chosenComputerCards.concat(_cardsComputer);
 
                 _amountCardToTake = 1;
+
                 console.log('przegrałeś');
             }
 
@@ -130,6 +146,7 @@ class CardsManager {
             if (result === TurnResult.Draw) {
                 console.log('remisss!!!');
                 _amountCardToTake++;
+
                 if (_cardsPlayer.length < _amountCardToTake ||
                     _cardsComputer.length < _amountCardToTake) {
                     return true;
@@ -137,7 +154,7 @@ class CardsManager {
                 //return false;
             }
 
-            return _checkIfGameIsOver();
+            return _checkIfGameIsOver(0);
         }
     }
 }
