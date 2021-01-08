@@ -1,11 +1,22 @@
 const h1Text = document.querySelector('.text');
-const txt = 'Gra karciana typu wojna :D :D :D'
+var currentContent;
 
 let indexText = 0;
 
 const addLetter = () => {
-    h1Text.textContent += txt[indexText];
+    h1Text.textContent += currentContent[indexText];
     indexText++;
-    if (indexText === txt.length) clearInterval(indexTyping);
+    if (indexText === currentContent.length) clearInterval(indexTyping);
 }
-const indexTyping = setInterval(addLetter, 90);
+
+var indexTyping;
+const drawTitle = (content) => {
+    currentContent = content;
+    indexText = 0;
+    h1Text.textContent = "";
+    indexTyping = setInterval(() => {
+        addLetter();
+    }, 90);
+}
+
+drawTitle("Gra karciana typu wojna :D :D :D")

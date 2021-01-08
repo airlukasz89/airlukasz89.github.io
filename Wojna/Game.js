@@ -52,12 +52,18 @@ class Game {
             console.log('--------------------------------------')
             if (_cardsManager.makeNextTurn()) {
                 _cardsManager.clearCards();
-                _whoWinSpan.textContent = "KONIEC GRY"
+                _whoWinSpan.textContent = "KONIEC GRY";
+                drawTitle("KONIEC GRY");
                 _isGameStarted = false;
                 console.log('koniec gry!!!');
+                setTimeout(() => {
+                    location.reload();
+                }, 5000);
             } else {
                 let lastTurnResult = _cardsManager.getLastTurnResult();
-                _statistics.givePointWinner(lastTurnResult);
+                setTimeout(() => {
+                    _statistics.givePointWinner(lastTurnResult)
+                }, 1000);
             }
 
 
