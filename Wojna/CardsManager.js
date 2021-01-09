@@ -107,11 +107,11 @@ class CardsManager {
             let topComputerCardValue = _chosenComputerCards[_chosenComputerCards.length - 1].getValue();
 
             if (_isFrontCard) {
-                _playerCardImg.src = `/Wojna/JPEG/${topPlayerCardValue}C.jpg`;
-                _computerCardImg.src = `/Wojna/JPEG/${topComputerCardValue}C.jpg`;
+                _playerCardImg.src = `${window.pathPrefix}/JPEG/${topPlayerCardValue}C.jpg`;
+                _computerCardImg.src = `${window.pathPrefix}/JPEG/${topComputerCardValue}C.jpg`;
             } else {
-                _playerCardImg2.src = `/Wojna/JPEG/${topPlayerCardValue}C.jpg`;
-                _computerCardImg2.src = `/Wojna/JPEG/${topComputerCardValue}C.jpg`;
+                _playerCardImg2.src = `${window.pathPrefix}/JPEG/${topPlayerCardValue}C.jpg`;
+                _computerCardImg2.src = `${window.pathPrefix}/JPEG/${topComputerCardValue}C.jpg`;
             }
 
             _isFrontCard = !_isFrontCard;
