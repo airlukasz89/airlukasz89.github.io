@@ -18,8 +18,7 @@ class Game {
 
         let _statistics = new Statistics(_winsPlayerSpan, _winsComputerSpan, _drawsSpan, _whoWinSpan);
 
-        let _startButton = document.getElementsByClassName('start')[0];
-        _startButton.addEventListener('click', () => {
+        let _onStartClick = () => {
             if (_isGameStarted) return;
 
             _card.classList.toggle('is-flipped');
@@ -40,10 +39,9 @@ class Game {
             _cardsManager.logCards();
 
             _isGameStarted = true;
-        });
+        };
 
-        let _nextTurnButton = document.getElementsByClassName('next')[0];
-        _nextTurnButton.addEventListener('click', () => {
+        let _onNextClick = () => {
             if (!_isGameStarted) return;
 
             _card.classList.toggle('is-flipped');
@@ -66,10 +64,39 @@ class Game {
                 }, 1000);
             }
 
-
-
             _cardsManager.logCards();
             console.log('--------------------------------------')
+        }
+
+        let _startButton = document.getElementsByClassName('start')[0];
+        _startButton.addEventListener('click', () => {
+            _onStartClick();
         });
+
+        let _nextTurnButton = document.getElementsByClassName('next')[0];
+        _nextTurnButton.addEventListener('click', () => {
+            _onNextClick();
+        });
+
+        let _autoInterval = null;
+        let _autoButton = document.getElementsByClassName('auto')[0];
+        _autoButton.addEventListener('click', () => {
+            if (!_isGameStarted) return;
+
+            _autoButton.classList.toggle("active");
+
+            if (_autoInterval != null) {
+                clearInterval(_autoInterval)
+                _autoInterval = null;
+                _nextTurnButton.removeAttribute("disabled");
+            } else {
+                _nextTurnButton.setAttribute("disabled", "true");
+                _onNextClick();
+                _autoInterval = setInterval(() => {
+                    _onNextClick();
+                }, 1000);
+            }
+        });
+
     }
 }

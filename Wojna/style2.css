@@ -26,6 +26,10 @@ body {
     width: 70%;
 } */
 
+.to-new-line {
+    clear: both;
+}
+
 .cards {
     width: 100%;
     height: 100%;
@@ -34,6 +38,10 @@ body {
     transition: all 1s ease-in-out;
 
 
+}
+
+.active {
+    box-shadow: 10px 5px 5px rgba(34, 248, 14, 0.993);
 }
 
 

@@ -13,7 +13,7 @@ class Statistics {
             if (lastTurnResult === TurnResult.PlayerWin) {
                 _pointPlayer++;
                 _winsPlayer.textContent = _pointPlayer;
-                _whoWin.textContent = "Ty wygrałeś";
+                _whoWin.textContent = "Wygrałeś";
                 _whoWin.style.color = "green"
 
             }
