@@ -94,7 +94,7 @@ class Game {
             let xVelocity = Math.cos(angle);
             let yVelocity = Math.sin(angle);
 
-            playerDeckAnimationImg.src = `/JPEG/Green_back.jpg`;
+            playerDeckAnimationImg.src = `${window.pathPrefix}/JPEG/Green_back.jpg`;
             playerDeckAnimationImg.style = 'position:absolute;width:200px;height:260px;;z-index:100;background:#000';
             document.getElementsByClassName("card-container")[0].appendChild(playerDeckAnimationImg);
             setInterval(() => {
