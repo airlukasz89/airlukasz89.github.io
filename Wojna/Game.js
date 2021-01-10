@@ -11,7 +11,7 @@ class Game {
         let _card = document.querySelector('.card');
         let _card2 = document.querySelector('.card2');
 
-        let _winsPlayerSpan = document.querySelector("p.wins-player span"); //TODO ...Span w nazwie
+        let _winsPlayerSpan = document.querySelector("p.wins-player span");
         let _winsComputerSpan = document.querySelector("p.wins-computer span");
         let _drawsSpan = document.querySelector("p.draws span");
         let _whoWinSpan = document.querySelector('[data-summary="who-win"]');
@@ -73,9 +73,35 @@ class Game {
             _onStartClick();
         });
 
+
+        let _left;
         let _nextTurnButton = document.getElementsByClassName('next')[0];
         _nextTurnButton.addEventListener('click', () => {
             _onNextClick();
+            let playerDeckImg = document.getElementById("playerDeck");
+            console.log(playerDeckImg.getBoundingClientRect().top);
+            console.log(playerDeckImg.getBoundingClientRect().left);
+
+            let startPlaceY = playerDeckImg.getBoundingClientRect().top;
+            let startPlaceX = playerDeckImg.getBoundingClientRect().left;
+            let endPlaceY = _choosenPlayerImg.getBoundingClientRect().top;
+            let endPlaceX = _choosenPlayerImg.getBoundingClientRect().left;
+            let playerDeckAnimationImg = document.createElement("img");
+            let dx = startPlaceX - endPlaceX;
+            let dy = startPlaceY - endPlaceY;
+            let angle = Math.atan2(dy, dx)
+            _left = endPlaceX;
+            let xVelocity = Math.cos(angle);
+            let yVelocity = Math.sin(angle);
+
+            playerDeckAnimationImg.src = `/JPEG/Green_back.jpg`;
+            playerDeckAnimationImg.style = 'position:absolute;width:200px;height:260px;;z-index:100;background:#000';
+            document.getElementsByClassName("card-container")[0].appendChild(playerDeckAnimationImg);
+            setInterval(() => {
+                playerDeckAnimationImg.style.left = `${_left+=xVelocity}px`;
+            }, 50);
+
+
         });
 
         let _autoInterval = null;
