@@ -81,10 +81,13 @@ class Game {
             let playerDeckImg = document.getElementById("playerDeck");
             let computerDeckImg = document.getElementById("computerDeck");
 
-            let startPlaceY = playerDeckImg.getBoundingClientRect().top;
-            let startPlaceX = playerDeckImg.getBoundingClientRect().left;
-            let endPlaceY = _choosenPlayerImg.getBoundingClientRect().top;
-            let endPlaceX = _choosenPlayerImg.getBoundingClientRect().left;
+            let startImg = _choosenPlayerImg;
+            let endImg = playerDeckImg;
+
+            let startPlaceY = startImg.getBoundingClientRect().top;
+            let startPlaceX = startImg.getBoundingClientRect().left;
+            let endPlaceY = endImg.getBoundingClientRect().top;
+            let endPlaceX = endImg.getBoundingClientRect().left;
 
             let playerDeckAnimationImg = document.createElement("img");
 
