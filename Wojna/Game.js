@@ -75,31 +75,42 @@ class Game {
 
 
         let _left;
+        let _top;
         let _nextTurnButton = document.getElementsByClassName('next')[0];
         _nextTurnButton.addEventListener('click', () => {
             _onNextClick();
             let playerDeckImg = document.getElementById("playerDeck");
-            console.log(playerDeckImg.getBoundingClientRect().top);
-            console.log(playerDeckImg.getBoundingClientRect().left);
+            let computerDeckImg = document.getElementById("computerDeck");
 
             let startPlaceY = playerDeckImg.getBoundingClientRect().top;
             let startPlaceX = playerDeckImg.getBoundingClientRect().left;
-            let endPlaceY = _choosenPlayerImg.getBoundingClientRect().top;
-            let endPlaceX = _choosenPlayerImg.getBoundingClientRect().left;
+            let endPlaceY = _choosenComputerImg.getBoundingClientRect().top;
+            let endPlaceX = _choosenComputerImg.getBoundingClientRect().left;
+
             let playerDeckAnimationImg = document.createElement("img");
-            let dx = startPlaceX - endPlaceX;
-            let dy = startPlaceY - endPlaceY;
-            let angle = Math.atan2(dy, dx)
-            _left = endPlaceX;
-            let xVelocity = Math.cos(angle);
-            let yVelocity = Math.sin(angle);
+
+            let dx = endPlaceX - startPlaceX;
+            let dy = endPlaceY - startPlaceY;
+            _left = startPlaceX;
+            _top = startPlaceY;
+
+            let m = dy / dx;
+            let b = endPlaceY - m * endPlaceX;
+
+            let xVelocity = dx / Math.abs(dx);
 
             playerDeckAnimationImg.src = `${window.pathPrefix}/JPEG/Green_back.jpg`;
             playerDeckAnimationImg.style = 'position:absolute;width:200px;height:260px;;z-index:100;background:#000';
             document.getElementsByClassName("card-container")[0].appendChild(playerDeckAnimationImg);
+
             setInterval(() => {
-                playerDeckAnimationImg.style.left = `${_left+=xVelocity}px`;
-            }, 50);
+                _left += xVelocity;
+                let y = m * _left + b;
+                y -= _top;
+                console.log(_left + ", " + y);
+                playerDeckAnimationImg.style.top = `${y}px`;
+                playerDeckAnimationImg.style.left = `${_left}px`;
+            }, 10);
 
 
         });
