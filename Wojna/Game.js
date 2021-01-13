@@ -26,26 +26,28 @@ class Game {
         let _onStartClick = () => {
             if (_isGameStarted) return;
 
-            _card.classList.toggle('is-flipped');
-            _card2.classList.toggle('is-flipped');
-
-            _card.classList.remove('is-none');
-            _card2.classList.remove('is-none');
-
-            _cardsManager.generateCards();
-            _cardsManager.giveCards();
-            _statistics.clear();
-
-            _cardsManager.makeNextTurn();
-
-            let lastTurnResult = _cardsManager.getLastTurnResult();
-            _statistics.givePointWinner(lastTurnResult);
-
-            _cardsManager.logCards();
-
-            _isGameStarted = true;
-
             _cardAnimator.animate();
+
+            setTimeout(() => {
+                _card.classList.toggle('is-flipped');
+                _card2.classList.toggle('is-flipped');
+
+                _card.classList.remove('is-none');
+                _card2.classList.remove('is-none');
+
+                _cardsManager.generateCards();
+                _cardsManager.giveCards();
+                _statistics.clear();
+
+                _cardsManager.makeNextTurn();
+
+                let lastTurnResult = _cardsManager.getLastTurnResult();
+                _statistics.givePointWinner(lastTurnResult);
+
+                _cardsManager.logCards();
+
+                _isGameStarted = true;
+            }, 1000)
         };
 
         let _onNextClick = () => {

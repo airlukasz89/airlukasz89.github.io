@@ -19,7 +19,8 @@ body {
 
 .card.is-none,
 .card2.is-none {
-    display: none;
+    /* display: none; */
+    opacity: 0;
 }
 
 /* .card-container img {

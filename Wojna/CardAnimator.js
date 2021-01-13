@@ -16,6 +16,10 @@ class CardAnimator {
             setTimeout(() => {
                 playerDeckAnimationImg.style.left = `${_choosenPlayerImg.getBoundingClientRect().left}px`
             }, 1)
+
+            setTimeout(() => {
+                document.getElementsByClassName("card-container")[0].removeChild(playerDeckAnimationImg);
+            }, 2000)
         }
 
     }
