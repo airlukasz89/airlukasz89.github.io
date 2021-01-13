@@ -53,28 +53,32 @@ class Game {
         let _onNextClick = () => {
             if (!_isGameStarted) return;
 
-            _card.classList.toggle('is-flipped');
-            _card2.classList.toggle('is-flipped');
+            _cardAnimator.animate();
 
-            console.log('--------------------------------------')
-            if (_cardsManager.makeNextTurn()) {
-                _cardsManager.clearCards();
-                _whoWinSpan.textContent = "KONIEC GRY";
-                drawTitle("KONIEC GRY");
-                _isGameStarted = false;
-                console.log('koniec gry!!!');
-                setTimeout(() => {
-                    location.reload();
-                }, 5000);
-            } else {
-                let lastTurnResult = _cardsManager.getLastTurnResult();
-                setTimeout(() => {
-                    _statistics.givePointWinner(lastTurnResult)
-                }, 1000);
-            }
+            setTimeout(() => {
+                _card.classList.toggle('is-flipped');
+                _card2.classList.toggle('is-flipped');
 
-            _cardsManager.logCards();
-            console.log('--------------------------------------')
+                console.log('--------------------------------------')
+                if (_cardsManager.makeNextTurn()) {
+                    _cardsManager.clearCards();
+                    _whoWinSpan.textContent = "KONIEC GRY";
+                    drawTitle("KONIEC GRY");
+                    _isGameStarted = false;
+                    console.log('koniec gry!!!');
+                    setTimeout(() => {
+                        location.reload();
+                    }, 5000);
+                } else {
+                    let lastTurnResult = _cardsManager.getLastTurnResult();
+                    setTimeout(() => {
+                        _statistics.givePointWinner(lastTurnResult)
+                    }, 1000);
+                }
+
+                _cardsManager.logCards();
+                console.log('--------------------------------------')
+            }, 2000);
         }
 
         let _startButton = document.getElementsByClassName('start')[0];
