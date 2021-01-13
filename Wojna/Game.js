@@ -6,6 +6,11 @@ class Game {
         let _choosenPlayerImg2 = document.getElementById('choosenPlayer2');
         let _choosenComputerImg2 = document.getElementById('choosenComputer2');
 
+        let _playerDeckImg = document.getElementById("playerDeck");
+        let _computerDeckImg = document.getElementById("computerDeck");
+
+        let _cardAnimator = new CardAnimator(_playerDeckImg, _computerDeckImg, _choosenPlayerImg, _choosenComputerImg);
+
         let _cardsManager = new CardsManager(_choosenPlayerImg, _choosenComputerImg, _choosenPlayerImg2, _choosenComputerImg2);
 
         let _card = document.querySelector('.card');
@@ -39,6 +44,8 @@ class Game {
             _cardsManager.logCards();
 
             _isGameStarted = true;
+
+            _cardAnimator.animate();
         };
 
         let _onNextClick = () => {
@@ -74,37 +81,10 @@ class Game {
         });
 
 
-        let _left;
+
         let _nextTurnButton = document.getElementsByClassName('next')[0];
         _nextTurnButton.addEventListener('click', () => {
             _onNextClick();
-            let playerDeckImg = document.getElementById("playerDeck");
-            let computerDeckImg = document.getElementById("computerDeck");
-
-            let startImg = _choosenPlayerImg;
-            let endImg = playerDeckImg;
-
-            let startPlaceY = startImg.getBoundingClientRect().top;
-            let startPlaceX = startImg.getBoundingClientRect().left;
-            let endPlaceY = endImg.getBoundingClientRect().top;
-            let endPlaceX = endImg.getBoundingClientRect().left;
-
-            let playerDeckAnimationImg = document.createElement("img");
-
-            let dx = endPlaceX - startPlaceX;
-            _left = startPlaceX;
-            let xVelocity = dx / Math.abs(dx);
-
-            playerDeckAnimationImg.src = `${window.pathPrefix}/JPEG/Green_back.jpg`;
-            playerDeckAnimationImg.style = 'position:absolute;width:200px;height:260px;;z-index:100;background:#000';
-            document.getElementsByClassName("card-container")[0].appendChild(playerDeckAnimationImg);
-
-            setInterval(() => {
-                _left += xVelocity;
-                playerDeckAnimationImg.style.left = `${_left}px`;
-            }, 10);
-
-
         });
 
         let _autoInterval = null;

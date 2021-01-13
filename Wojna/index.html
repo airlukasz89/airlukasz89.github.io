@@ -62,6 +62,7 @@
     <script src="main.js"></script>
     <script src="Card.js"></script>
     <script src="CardsManager.js"></script>
+    <script src="CardAnimator.js"></script>
     <script src="Game.js"></script>
     <script src="TurnResult.js"></script>
     <script src="Statistics.js"></script>
@@ -72,6 +73,8 @@
 
         document.getElementById("playerDeck").src = `${window.pathPrefix}/JPEG/blue_back.jpg`;
         document.getElementById("computerDeck").src = `${window.pathPrefix}/JPEG/Green_back.jpg`;
+        document.getElementById("choosenPlayer").src = `${window.pathPrefix}/JPEG/blue_back.jpg`;
+        document.getElementById("choosenComputer").src = `${window.pathPrefix}/JPEG/Green_back.jpg`;
     </script>
     <script>
         const game = new Game();
