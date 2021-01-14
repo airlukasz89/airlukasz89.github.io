@@ -109,9 +109,19 @@ class CardsManager {
             if (_isFrontCard) {
                 _playerCardImg.src = `${window.pathPrefix}/JPEG/${topPlayerCardValue}C.jpg`;
                 _computerCardImg.src = `${window.pathPrefix}/JPEG/${topComputerCardValue}C.jpg`;
+                _computerCardImg2.src = `${window.pathPrefix}/JPEG/Green_back.jpg`;
+                _playerCardImg2.src = `${window.pathPrefix}/JPEG/blue_back.jpg`;
+
+
+
+                //
             } else {
                 _playerCardImg2.src = `${window.pathPrefix}/JPEG/${topPlayerCardValue}C.jpg`;
                 _computerCardImg2.src = `${window.pathPrefix}/JPEG/${topComputerCardValue}C.jpg`;
+                _computerCardImg.src = `${window.pathPrefix}/JPEG/Green_back.jpg`;
+                _playerCardImg.src = `${window.pathPrefix}/JPEG/blue_back.jpg`;
+
+                //
             }
 
             _isFrontCard = !_isFrontCard;
