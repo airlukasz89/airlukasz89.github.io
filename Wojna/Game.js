@@ -9,12 +9,14 @@ class Game {
         let _playerDeckImg = document.getElementById("playerDeck");
         let _computerDeckImg = document.getElementById("computerDeck");
 
-        let _cardAnimator = new CardAnimator(_playerDeckImg, _computerDeckImg, _choosenPlayerImg, _choosenComputerImg);
+        let _playerContainer = document.querySelector('.card');
+        let _computerContainer = document.querySelector('.card2');
+
+        let _cardAnimator = new CardAnimator(_playerDeckImg, _computerDeckImg, _choosenPlayerImg, _choosenComputerImg, _playerContainer, _computerContainer);
 
         let _cardsManager = new CardsManager(_choosenPlayerImg, _choosenComputerImg, _choosenPlayerImg2, _choosenComputerImg2);
 
-        let _card = document.querySelector('.card');
-        let _card2 = document.querySelector('.card2');
+
 
         let _winsPlayerSpan = document.querySelector("p.wins-player span");
         let _winsComputerSpan = document.querySelector("p.wins-computer span");
@@ -23,28 +25,36 @@ class Game {
 
         let _statistics = new Statistics(_winsPlayerSpan, _winsComputerSpan, _drawsSpan, _whoWinSpan);
 
+        let _showContainers = () => {
+            _playerContainer.classList.remove('is-none');
+            _computerContainer.classList.remove('is-none');
+        };
+
+        let _givePointWinner = (time) => {
+            let lastTurnResult = _cardsManager.getLastTurnResult();
+            setTimeout(() => {
+                _statistics.givePointWinner(lastTurnResult)
+            }, time);
+        }
+
         let _onStartClick = () => {
+
             if (_isGameStarted) return;
 
             _cardAnimator.animatePlayerCard();
             _cardAnimator.animateComputerCard();
 
             setTimeout(() => {
-                _card.classList.toggle('is-flipped');
-                _card2.classList.toggle('is-flipped');
-
-                _card.classList.remove('is-none');
-                _card2.classList.remove('is-none');
-
+                _cardAnimator.flipPlayerCard();
+                _cardAnimator.flipComputerCard();
+                _showContainers();
                 _cardsManager.generateCards();
                 _cardsManager.giveCards();
                 _statistics.clear();
 
                 _cardsManager.makeNextTurn();
 
-
-                let lastTurnResult = _cardsManager.getLastTurnResult();
-                _statistics.givePointWinner(lastTurnResult);
+                _givePointWinner(1)
 
                 _cardsManager.logCards();
 
@@ -61,8 +71,8 @@ class Game {
             _statistics.clearWhoWinLabel();
             setTimeout(() => {
 
-                _card.classList.toggle('is-flipped');
-                _card2.classList.toggle('is-flipped');
+                _cardAnimator.flipPlayerCard();
+                _cardAnimator.flipComputerCard();
 
 
                 console.log('--------------------------------------')
@@ -76,10 +86,7 @@ class Game {
                         location.reload();
                     }, 5000);
                 } else {
-                    let lastTurnResult = _cardsManager.getLastTurnResult();
-                    setTimeout(() => {
-                        _statistics.givePointWinner(lastTurnResult)
-                    }, 1000);
+                    _givePointWinner(1000);
                 }
 
                 _cardsManager.logCards();
@@ -115,7 +122,7 @@ class Game {
                 _onNextClick();
                 _autoInterval = setInterval(() => {
                     _onNextClick();
-                }, 1000);
+                }, 3000);
             }
         });
 

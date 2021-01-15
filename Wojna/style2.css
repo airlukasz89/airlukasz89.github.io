@@ -7,14 +7,14 @@ body {
     cursor: pointer;
     perspective: 600;
     position: relative;
-    width: 200px;
-    height: 260px;
+    width: 100px;
+    height: 130px;
     float: left;
 }
 
 .card-container img {
-    width: 200px;
-    height: 260px;
+    width: 100px;
+    height: 130px;
 }
 
 .card.is-none,
@@ -37,7 +37,7 @@ body {
     position: absolute;
     transform-style: preserve-3d;
     transition: all 1s ease-in-out;
-
+    transition-property: transform;
 
 }
 

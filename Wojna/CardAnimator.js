@@ -1,9 +1,13 @@
 class CardAnimator {
-    constructor(playerDeckImg, computerDeckImg, choosenPlayerImg, choosenComputerImg) {
+    constructor(playerDeckImg, computerDeckImg, choosenPlayerImg, choosenComputerImg, playerContainer, computerContainer) {
         let _playerDeckImg = playerDeckImg;
         let _computerDeckImg = computerDeckImg;
         let _choosenPlayerImg = choosenPlayerImg;
         let _choosenComputerImg = choosenComputerImg;
+        let _playerContainer = playerContainer;
+        let _computerContainer = computerContainer;
+
+
 
 
         //let _animate(src, fromImg, toImg)
@@ -39,5 +43,16 @@ class CardAnimator {
 
         }
 
+
+        this.flipPlayerCard = () => {
+            _playerContainer.classList.toggle('is-flipped');
+
+
+        }
+
+        this.flipComputerCard = () => {
+            _computerContainer.classList.toggle('is-flipped');
+
+        }
     }
 }
