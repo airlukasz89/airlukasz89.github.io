@@ -3,41 +3,40 @@ class CardAnimator {
         let _playerDeckImg = playerDeckImg;
         let _computerDeckImg = computerDeckImg;
         let _choosenPlayerImg = choosenPlayerImg;
-        let _choosenComputerImg = choosenComputerImg
+        let _choosenComputerImg = choosenComputerImg;
+
 
         //let _animate(src, fromImg, toImg)
         //this.animatePlayerCard() -> _animate(...)
         //this.animateComputerCard() -> _animate(...)
-        this.animate = () => {
-            let playerDeckAnimationImg = document.createElement("img");
 
-            playerDeckAnimationImg.src = `${window.pathPrefix}/JPEG/blue_back.jpg`;
-            playerDeckAnimationImg.classList.add("aniamtion-img");
-            playerDeckAnimationImg.style.left = `${_playerDeckImg.getBoundingClientRect().left}px`
-            document.getElementsByClassName("card-container")[0].appendChild(playerDeckAnimationImg);
+        let _animate = (src, fromImg, toImg) => {
+            let cardContainerIndex = fromImg == _playerDeckImg ? 0 : 2;
+            let animationImg = document.createElement("img");
+            animationImg.src = src;
+            animationImg.classList.add("aniamtion-img");
+            animationImg.style.left = `${fromImg.getBoundingClientRect().left}px`
+            document.getElementsByClassName("card-container")[cardContainerIndex].appendChild(animationImg);
 
             setTimeout(() => {
-                playerDeckAnimationImg.style.left = `${_choosenPlayerImg.getBoundingClientRect().left}px`
+                animationImg.style.left = `${toImg.getBoundingClientRect().left}px`
             }, 1)
 
             setTimeout(() => {
-                document.getElementsByClassName("card-container")[0].removeChild(playerDeckAnimationImg);
+                document.getElementsByClassName("card-container")[cardContainerIndex].removeChild(animationImg);
             }, 2000);
+        }
 
-            let computerDeckAnimationImg = document.createElement("img");
 
-            computerDeckAnimationImg.src = `${window.pathPrefix}/JPEG/Green_back.jpg`;
-            computerDeckAnimationImg.classList.add("aniamtion-img");
-            computerDeckAnimationImg.style.left = `${_computerDeckImg.getBoundingClientRect().left}px`
-            document.getElementsByClassName("card-container")[2].appendChild(computerDeckAnimationImg);
+        this.animatePlayerCard = () => {
+            _animate(`${window.pathPrefix}/JPEG/blue_back.jpg`, _playerDeckImg, _choosenPlayerImg)
 
-            setTimeout(() => {
-                computerDeckAnimationImg.style.left = `${_choosenComputerImg.getBoundingClientRect().left}px`
-            }, 1)
+        }
 
-            setTimeout(() => {
-                document.getElementsByClassName("card-container")[2].removeChild(computerDeckAnimationImg);
-            }, 2000)
+
+        this.animateComputerCard = () => {
+            _animate(`${window.pathPrefix}/JPEG/Green_back.jpg`, _computerDeckImg, _choosenComputerImg)
+
         }
 
     }

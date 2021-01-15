@@ -34,6 +34,10 @@ class Statistics {
             }
         }
 
+        this.clearWhoWinLabel = () => {
+            _whoWin.textContent = "";
+        }
+
         this.clear = () => {
             _pointPlayer = _pointComputer = _pointDraw = 0;
             _winsPlayer.textContent = _pointPlayer;
