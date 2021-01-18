@@ -17,6 +17,51 @@ class Game {
         }
         _initApples();
 
+        let _getAppleToEat = (head) => {
+            for (const apple of _applesArray) {
+                if (apple.getX() === head.getX() &&
+                    apple.getY() === head.getY()) {
+                    return apple;
+                }
+            }
+            return null;
+        }
+
+        let _getPointToTeleport = (head, direction) => {
+
+            var pointToTeleport = null;
+
+            if (head.getX() > _width) {
+                pointToTeleport = {
+                    x: 1,
+                    y: head.getY()
+                };
+            }
+            if (head.getX() < 1) {
+                pointToTeleport = {
+                    x: _width,
+                    y: head.getY()
+                };
+            }
+            if (head.getY() > _height) {
+                pointToTeleport = {
+                    x: head.getX(),
+                    y: 1
+                };
+            }
+            if (head.getY() < 1) {
+                pointToTeleport = {
+                    x: head.getX(),
+                    y: _height
+                };
+            }
+
+
+            return pointToTeleport;
+        }
+
+
+
         this.updateLogic = () => {
             let snakeDirection = _inputManager.getLastClickedButton();
 
@@ -25,21 +70,14 @@ class Game {
             snakeTmp.move(snakeDirection);
             head = snakeTmp.getHead();
 
-            let appleToEat = null;
-            for (const apple of _applesArray) {
-                if (apple.getX() === head.getX() &&
-                    apple.getY() === head.getY()) {
-                    appleToEat = apple;
-                    console.log("mniam")
-                    break;
-                }
-            }
+            let appleToEat = _getAppleToEat(head);
+            let pointToTeleport = _getPointToTeleport(head, snakeDirection)
 
             if (appleToEat) {
                 _snake.eatApple(appleToEat);
                 _applesArray.splice(_applesArray.indexOf(appleToEat), 1);
-            } else if (head.getX() > _width) {
-                _snake.teleport(5, 6);
+            } else if (pointToTeleport) {
+                _snake.teleport(pointToTeleport.x, pointToTeleport.y);
             } else {
                 _snake.move(snakeDirection);
             }
@@ -66,7 +104,7 @@ class Game {
             setInterval(() => {
                 this.updateLogic();
                 this.render();
-            }, 400);
+            }, 100);
         }
     }
 }
