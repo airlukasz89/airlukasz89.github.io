@@ -13,8 +13,8 @@ class InputManager {
 
         let _addClickedListener = (button) => {
             button.addEventListener('click', (e) => {
-                let div = e.target;
-                _divChosen = Directions.GetDirection(div.className);
+                let target = e.target;
+                _divChosen = Directions.GetDirectionFromButton(target.className);
 
             })
         }
@@ -22,5 +22,13 @@ class InputManager {
         _addClickedListener(_buttonRight);
         _addClickedListener(_buttonLeft);
         _addClickedListener(_buttonDown);
+
+
+
+        let _logKey = (e) => {
+            _divChosen = Directions.GetDirectionFromKey(e.code);
+
+        }
+        document.addEventListener('keydown', _logKey);
     }
 }

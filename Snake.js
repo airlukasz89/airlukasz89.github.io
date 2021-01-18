@@ -38,6 +38,12 @@ class Snake {
             return _head;
         };
 
+        this.teleport = (x, y) => {
+            let newHead = new SnakeSegment(x, y, _head);
+            newHead = _removeLastSegment(newHead);
+            _head = newHead;
+        }
+
         this.move = (direction) => {
             let diffVector = _getMoveDiffVector(direction);
             let beforeMoveLength = this.getLength();

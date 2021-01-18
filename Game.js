@@ -9,7 +9,7 @@ class Game {
 
         let _applesArray = [];
         let _initApples = () => {
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < 100; i++) {
                 const x = Math.floor(Math.random() * _width) + 1;
                 const y = Math.floor(Math.random() * _height) + 1;
                 _applesArray.push(new Apple(x, y));
@@ -38,6 +38,8 @@ class Game {
             if (appleToEat) {
                 _snake.eatApple(appleToEat);
                 _applesArray.splice(_applesArray.indexOf(appleToEat), 1);
+            } else if (head.getX() > _width) {
+                _snake.teleport(5, 6);
             } else {
                 _snake.move(snakeDirection);
             }
