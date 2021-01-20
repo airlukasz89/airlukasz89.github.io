@@ -10,7 +10,7 @@ class Game {
 
         let _applesArray = [];
         let _initApples = () => {
-            for (let i = 0; i < 100; i++) {
+            for (let i = 0; i < 50; i++) {
                 const x = Math.floor(Math.random() * _width) + 1;
                 const y = Math.floor(Math.random() * _height) + 1;
                 _applesArray.push(new Apple(x, y));
@@ -32,28 +32,28 @@ class Game {
 
             var pointToTeleport = null;
 
-            if (head.getX() > _width) {
+            if (head.getX() > _width - 1) {
                 pointToTeleport = {
-                    x: -1,
+                    x: 0,
                     y: head.getY()
                 };
             }
             if (head.getX() < 0) {
                 pointToTeleport = {
-                    x: _width,
+                    x: _width - 1,
                     y: head.getY()
                 };
             }
-            if (head.getY() > _height) {
+            if (head.getY() > _height - 1) {
                 pointToTeleport = {
                     x: head.getX(),
-                    y: -1
+                    y: 0
                 };
             }
             if (head.getY() < 0) {
                 pointToTeleport = {
                     x: head.getX(),
-                    y: _height
+                    y: _height - 1
                 };
             }
 
