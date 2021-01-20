@@ -7,6 +7,7 @@ class Game {
         let _snake = new Snake(width / 2, height / 2);
         let _inputManager = new InputManager(buttonUp, buttonRight, buttonDown, buttonLeft);
 
+
         let _applesArray = [];
         let _initApples = () => {
             for (let i = 0; i < 100; i++) {
@@ -33,11 +34,11 @@ class Game {
 
             if (head.getX() > _width) {
                 pointToTeleport = {
-                    x: 1,
+                    x: -1,
                     y: head.getY()
                 };
             }
-            if (head.getX() < 1) {
+            if (head.getX() < 0) {
                 pointToTeleport = {
                     x: _width,
                     y: head.getY()
@@ -46,10 +47,10 @@ class Game {
             if (head.getY() > _height) {
                 pointToTeleport = {
                     x: head.getX(),
-                    y: 1
+                    y: -1
                 };
             }
-            if (head.getY() < 1) {
+            if (head.getY() < 0) {
                 pointToTeleport = {
                     x: head.getX(),
                     y: _height
@@ -96,6 +97,7 @@ class Game {
 
             for (const apple of _applesArray) {
                 _display.changeColor(apple.getX(), apple.getY(), "red");
+
             }
             _display.render(_htmlElement);
         }

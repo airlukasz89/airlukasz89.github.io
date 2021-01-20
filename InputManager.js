@@ -26,8 +26,12 @@ class InputManager {
 
 
         let _logKey = (e) => {
-            _divChosen = Directions.GetDirectionFromKey(e.code);
-
+            let direction = Directions.GetDirectionFromKey(e.code);
+            if (direction != null) {
+                _divChosen = direction;
+            }
+            e.preventDefault();
+            console.log(Directions.GetDirectionFromKey(e.code));
         }
         document.addEventListener('keydown', _logKey);
     }
