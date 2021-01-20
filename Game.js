@@ -6,10 +6,12 @@ class Game {
         let _height = height;
         let _snake = new Snake(width / 2, height / 2);
         let _inputManager = new InputManager(buttonUp, buttonRight, buttonDown, buttonLeft);
+        let _snakeDirection = null;
 
 
         let _applesArray = [];
         let _initApples = () => {
+            _applesArray = [];
             for (let i = 0; i < 50; i++) {
                 const x = Math.floor(Math.random() * _width) + 1;
                 const y = Math.floor(Math.random() * _height) + 1;
@@ -61,18 +63,40 @@ class Game {
             return pointToTeleport;
         }
 
+        let _getDirection = () => {
+            let newSnakeDirection = _inputManager.getLastClickedButton();
 
+            if (newSnakeDirection == null) return _snakeDirection;
+
+            if (
+                (newSnakeDirection === Directions.Up && _snakeDirection === Directions.Down) ||
+                (newSnakeDirection === Directions.Down && _snakeDirection === Directions.Up) ||
+                (newSnakeDirection === Directions.Left && _snakeDirection === Directions.Right) ||
+                (newSnakeDirection === Directions.Right && _snakeDirection === Directions.Left)
+            ) {
+                return _snakeDirection;
+            }
+
+            return newSnakeDirection;
+        }
+
+        let _restartGameplay = () => {
+            _snake = new Snake(width / 2, height / 2);
+            _initApples();
+            _snakeDirection = null;
+            _inputManager.reset();
+        }
 
         this.updateLogic = () => {
-            let snakeDirection = _inputManager.getLastClickedButton();
+            _snakeDirection = _getDirection();
 
             let head = _snake.getHead();
             let snakeTmp = new Snake(head.getX(), head.getY());
-            snakeTmp.move(snakeDirection);
+            snakeTmp.move(_snakeDirection);
             head = snakeTmp.getHead();
 
             let appleToEat = _getAppleToEat(head);
-            let pointToTeleport = _getPointToTeleport(head, snakeDirection)
+            let pointToTeleport = _getPointToTeleport(head, _snakeDirection)
 
             if (appleToEat) {
                 _snake.eatApple(appleToEat);
@@ -80,11 +104,17 @@ class Game {
             } else if (pointToTeleport) {
                 _snake.teleport(pointToTeleport.x, pointToTeleport.y);
             } else {
-                _snake.move(snakeDirection);
+                _snake.move(_snakeDirection);
             }
 
-            console.log("Snake length: " + +_snake.getLength());
+
+            if (_snake.isSelfColiding()) {
+                _restartGameplay()
+            }
+            // console.log("Snake length: " + +_snake.getLength());
         }
+
+
 
         this.render = () => {
             _display.clear();

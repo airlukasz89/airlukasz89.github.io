@@ -31,8 +31,12 @@ class InputManager {
                 _divChosen = direction;
             }
             e.preventDefault();
-            console.log(Directions.GetDirectionFromKey(e.code));
+            // console.log(Directions.GetDirectionFromKey(e.code));
         }
         document.addEventListener('keydown', _logKey);
+
+        this.reset = () => {
+            _divChosen = null;
+        }
     }
 }

@@ -82,12 +82,27 @@ class Snake {
 
         this.getLength = () => {
             let length = 0;
-            let head = _head;
-            while (head) {
+            let currentSegment = _head;
+            while (currentSegment) {
                 length++;
-                head = head.getNext();
+                currentSegment = currentSegment.getNext();
             }
             return length;
+        }
+
+        this.isSelfColiding = () => {
+            let segments = [];
+            let currentSegment = _head;
+            while (currentSegment) {
+                const coliding = segments.filter(segment => segment.getX() == currentSegment.getX() && segment.getY() == currentSegment.getY());
+                if (coliding.length > 0) {
+                    console.log('kolizja')
+                    return true;
+                }
+                segments.push(currentSegment);
+                currentSegment = currentSegment.getNext();
+            }
+            return false;
         }
     }
 }
