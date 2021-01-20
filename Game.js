@@ -1,5 +1,5 @@
 class Game {
-    constructor(height, width, htmlElement, buttonUp, buttonRight, buttonDown, buttonLeft) {
+    constructor(height, width, htmlElement, buttonUp, buttonRight, buttonDown, buttonLeft, pointsSpan) {
         let _display = new Display(height, width);
         let _htmlElement = htmlElement;
         let _width = width;
@@ -7,6 +7,8 @@ class Game {
         let _snake = new Snake(width / 2, height / 2);
         let _inputManager = new InputManager(buttonUp, buttonRight, buttonDown, buttonLeft);
         let _snakeDirection = null;
+        let _pointsSpan = pointsSpan;
+        let _points = 0;
 
 
         let _applesArray = [];
@@ -85,6 +87,15 @@ class Game {
             _initApples();
             _snakeDirection = null;
             _inputManager.reset();
+            _clearPoints()
+        }
+
+        let _addPoint = () => {
+            _pointsSpan.textContent = ++_points;
+        }
+
+        let _clearPoints = () => {
+            _pointsSpan.textContent = _points = 0;
         }
 
         this.updateLogic = () => {
@@ -101,6 +112,7 @@ class Game {
             if (appleToEat) {
                 _snake.eatApple(appleToEat);
                 _applesArray.splice(_applesArray.indexOf(appleToEat), 1);
+                _addPoint();
             } else if (pointToTeleport) {
                 _snake.teleport(pointToTeleport.x, pointToTeleport.y);
             } else {

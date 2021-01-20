@@ -44,7 +44,7 @@
       </div>
   </section>
   <section>
-
+    <p id="points">POINTS: <span>0</span></p>
     <div id="snake"></div>
     <div class="buttons">
 
@@ -75,11 +75,12 @@
     let buttonDown = document.getElementsByClassName('down')[0];
     let buttonRight = document.getElementsByClassName('right')[0];
     let buttonLeft = document.getElementsByClassName('left')[0];
+    let pointsSpan = document.getElementById("points").getElementsByTagName("span")[0];
 
     let width = 40;
     let height = 40;
 
-    const game = new Game(height, width, snakeElement, buttonUp, buttonDown, buttonRight, buttonLeft);
+    const game = new Game(height, width, snakeElement, buttonUp, buttonDown, buttonRight, buttonLeft, pointsSpan);
     game.start();
   </script>
 </body>
