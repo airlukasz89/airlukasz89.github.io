@@ -1,8 +1,8 @@
 class Directions {
-  static Up = "up";
-  static Down = "down";
-  static Left = "left";
-  static Right = "right";
+  static Up = "up arr";
+  static Down = "down arr";
+  static Left = "left arr";
+  static Right = "right arr";
 
   static GetDirectionFromButton = (value) => {
     if (value == Directions.Up) return Directions.Up;
