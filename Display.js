@@ -1,10 +1,56 @@
 class Display {
-  constructor(height, width) {
+  constructor(height, width, element) {
     let _height = height;
     let _width = width;
+    let _element = element;
     let _pixels = [];
+    let _grid = [];
 
-    let _init = () => {
+    let _initHtml = () => {
+      let container = document.createElement("div");
+      container.className = "container";
+      let elementWidth = _element.offsetWidth;
+      let pixelSize = (elementWidth / _width);
+      pixelSize = Math.floor(pixelSize); //zaokrąglenie do 2 miejsc
+
+      for (let x = 0; x < _width; x++) {
+        const column = document.createElement("div");
+        column.className = "column";
+
+        let gridColumn = [];
+
+        for (let y = 0; y < _height; y++) {
+          let cell = document.createElement("div");
+          cell.className = "row";
+
+          let pixel = _getPixel(x, y);
+          cell.style.backgroundColor = pixel.color;
+          cell.style.width = pixelSize + "px";
+          cell.style.height = pixelSize + "px";
+
+          column.appendChild(cell);
+
+          gridColumn.push({
+            color: pixel.color,
+            html: null
+          });
+        }
+
+        _grid.push(gridColumn);
+
+        container.appendChild(column);
+      }
+      _element.innerHTML = container.outerHTML;
+
+
+      for (let x = 0; x < _width; x++) {
+        for (let y = 0; y < _height; y++) {
+          _grid[x][y].html = document.querySelector("#snake > div > div:nth-child(" + (x + 1) + ") > div:nth-child(" + (y + 1) + ")");
+        }
+      }
+    }
+
+    let _initPixels = () => {
       for (let x = 0; x < _width; x++) {
         for (let y = 0; y < _height; y++) {
           let pixel = new Pixel(x, y, "black");
@@ -21,12 +67,9 @@ class Display {
 
     this.clear = () => {
       _pixels = [];
-      _init();
+      _initPixels();
     }
 
-    _init();
-    //TODO tymczasowy
-    // this.changeColor(4, 9, "green");
     this.changeColor = (x, y, color) => {
       let pixel = _getPixel(x, y);
 
@@ -37,35 +80,20 @@ class Display {
       pixel.color = color;
     }
 
-    this.render = (element) => {
-      let container = document.createElement("div");
-      container.className = "container";
-      let elementWidth = element.offsetWidth;
-      let pixelSize = (elementWidth / _width);
-      pixelSize = Math.floor(pixelSize); //zaokrąglenie do 2 miejsc
-
+    this.render = () => {
       for (let x = 0; x < _width; x++) {
-        const column = document.createElement("div");
-        column.className = "column";
-
         for (let y = 0; y < _height; y++) {
-          const row = document.createElement("div");
-          row.className = "row";
-
           let pixel = _getPixel(x, y);
-          row.style.backgroundColor = pixel.color;
-          row.style.width = pixelSize + "px";
-          row.style.height = pixelSize + "px";
+          let gridCell = _grid[x][y];
 
-          column.appendChild(row);
+          if (pixel.color != gridCell.color) {
+            gridCell.html.style.backgroundColor = gridCell.color = pixel.color;
+          }
         }
-
-        container.appendChild(column);
       }
-      element.innerHTML = container.outerHTML;
     }
+
+    _initPixels();
+    _initHtml();
   }
-
-
-
 }

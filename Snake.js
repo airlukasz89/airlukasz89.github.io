@@ -38,6 +38,12 @@ class Snake {
             return _head;
         };
 
+        this.teleport = (x, y) => {
+            let newHead = new SnakeSegment(x, y, _head);
+            newHead = _removeLastSegment(newHead);
+            _head = newHead;
+        }
+
         this.move = (direction) => {
             let diffVector = _getMoveDiffVector(direction);
             let beforeMoveLength = this.getLength();
@@ -76,12 +82,27 @@ class Snake {
 
         this.getLength = () => {
             let length = 0;
-            let head = _head;
-            while (head) {
+            let currentSegment = _head;
+            while (currentSegment) {
                 length++;
-                head = head.getNext();
+                currentSegment = currentSegment.getNext();
             }
             return length;
+        }
+
+        this.isSelfColiding = () => {
+            let segments = [];
+            let currentSegment = _head;
+            while (currentSegment) {
+                const coliding = segments.filter(segment => segment.getX() == currentSegment.getX() && segment.getY() == currentSegment.getY());
+                if (coliding.length > 0) {
+                    console.log('kolizja')
+                    return true;
+                }
+                segments.push(currentSegment);
+                currentSegment = currentSegment.getNext();
+            }
+            return false;
         }
     }
 }

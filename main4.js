@@ -32,6 +32,6 @@ document.querySelector('.logo').addEventListener('mousemove', (e) => {
 
 document.querySelector('.logo').addEventListener("mouseup", () => {
     drawActive = false;
-    console.log("up")
+    // console.log("up")
     // drawActive = false;
 })
