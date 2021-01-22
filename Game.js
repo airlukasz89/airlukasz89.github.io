@@ -8,17 +8,29 @@ class Game {
         let _snakeDirection = null;
         let _pointsSpan = pointsSpan;
         let _points = 0;
-
         let _applesArray = [];
+        let _superApplesArray = [];
+
         let _initApples = () => {
             _applesArray = [];
-            for (let i = 0; i < 50; i++) {
+            for (let i = 0; i < 20; i++) {
                 const x = Math.floor(Math.random() * _width) + 1;
                 const y = Math.floor(Math.random() * _height) + 1;
                 _applesArray.push(new Apple(x, y));
             }
         }
+
+        let _initSuperApples = () => {
+            _superApplesArray = [];
+            for (let i = 0; i < 5; i++) {
+                const x = Math.floor(Math.random() * _width) + 1;
+                const y = Math.floor(Math.random() * _height) + 1;
+                _superApplesArray.push(new SuperApple(x, y));
+            }
+        }
+
         _initApples();
+        _initSuperApples();
 
         let _getAppleToEat = (head) => {
             for (const apple of _applesArray) {
@@ -30,7 +42,16 @@ class Game {
             return null;
         }
 
-        let _getPointToTeleport = (head, direction) => {
+        let _getSuperAppleToEat = (head) => {
+            for (const superApple of _superApplesArray) {
+                if (superApple.isColiding(head.getX(), head.getY())) {
+                    return superApple;
+                }
+            }
+            return null;
+        }
+
+        let _getPointToTeleport = (head) => {
 
             var pointToTeleport = null;
 
@@ -83,13 +104,17 @@ class Game {
         let _restartGameplay = () => {
             _snake = new Snake(width / 2, height / 2);
             _initApples();
+            _initSuperApples();
             _snakeDirection = null;
             _inputManager.reset();
             _clearPoints()
         }
 
-        let _addPoint = () => {
-            _pointsSpan.textContent = ++_points;
+        let _addPoint = (value) => {
+            _pointsSpan.textContent = _points = _points + value;
+
+            var audio = new Audio('ping.mp3');
+            audio.play();
         }
 
         let _clearPoints = () => {
@@ -105,12 +130,19 @@ class Game {
             head = snakeTmp.getHead();
 
             let appleToEat = _getAppleToEat(head);
-            let pointToTeleport = _getPointToTeleport(head, _snakeDirection)
+            let superAppleToEat = _getSuperAppleToEat(head);
+            let pointToTeleport = _getPointToTeleport(head)
 
             if (appleToEat) {
-                _snake.eatApple(appleToEat);
+                _snake.eatApple(appleToEat.getX(), appleToEat.getY());
                 _applesArray.splice(_applesArray.indexOf(appleToEat), 1);
-                _addPoint();
+                _addPoint(1);
+                _snake.move(_snakeDirection);
+            } else if (superAppleToEat) {
+                _snake.eatApple(head.getX(), head.getY());
+                _superApplesArray.splice(_superApplesArray.indexOf(superAppleToEat), 1);
+                _addPoint(10);
+                _snake.move(_snakeDirection);
             } else if (pointToTeleport) {
                 _snake.teleport(pointToTeleport.x, pointToTeleport.y);
             } else {
@@ -118,11 +150,18 @@ class Game {
             }
 
 
+
+
             if (_snake.isSelfColiding()) {
                 _restartGameplay()
             }
         }
 
+        let _changeApplesColor = (applesArray) => {
+            for (const apple of applesArray) {
+                _display.changeColor(apple.getX(), apple.getY(), "red");
+            }
+        }
 
         this.render = () => {
             _display.clear();
@@ -133,10 +172,12 @@ class Game {
                 head = head.getNext();
             }
 
-            for (const apple of _applesArray) {
-                _display.changeColor(apple.getX(), apple.getY(), "red");
+            _changeApplesColor(_applesArray);
 
+            for (const superApple of _superApplesArray) {
+                _changeApplesColor(superApple.getApples())
             }
+
             _display.render();
         }
 

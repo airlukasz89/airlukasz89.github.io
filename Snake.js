@@ -75,8 +75,8 @@ class Snake {
             return head;
         }
 
-        this.eatApple = (apple) => {
-            let newHead = new SnakeSegment(apple.getX(), apple.getY(), _head);
+        this.eatApple = (x, y) => {
+            let newHead = new SnakeSegment(x, y, _head);
             _head = newHead;
         }
 
