@@ -1,7 +1,6 @@
 class Game {
     constructor(height, width, htmlElement, buttonUp, buttonRight, buttonDown, buttonLeft, pointsSpan) {
-        let _display = new Display(height, width);
-        let _htmlElement = htmlElement;
+        let _display = new Display(height, width, htmlElement);
         let _width = width;
         let _height = height;
         let _snake = new Snake(width / 2, height / 2);
@@ -9,7 +8,6 @@ class Game {
         let _snakeDirection = null;
         let _pointsSpan = pointsSpan;
         let _points = 0;
-
 
         let _applesArray = [];
         let _initApples = () => {
@@ -123,9 +121,7 @@ class Game {
             if (_snake.isSelfColiding()) {
                 _restartGameplay()
             }
-            // console.log("Snake length: " + +_snake.getLength());
         }
-
 
 
         this.render = () => {
@@ -141,7 +137,7 @@ class Game {
                 _display.changeColor(apple.getX(), apple.getY(), "red");
 
             }
-            _display.render(_htmlElement);
+            _display.render();
         }
 
         this.start = () => {
