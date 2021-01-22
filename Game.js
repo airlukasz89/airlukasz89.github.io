@@ -13,7 +13,7 @@ class Game {
 
         let _initApples = () => {
             _applesArray = [];
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 30; i++) {
                 const x = Math.floor(Math.random() * _width) + 1;
                 const y = Math.floor(Math.random() * _height) + 1;
                 _applesArray.push(new Apple(x, y));
@@ -22,7 +22,7 @@ class Game {
 
         let _initSuperApples = () => {
             _superApplesArray = [];
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < 10; i++) {
                 const x = Math.floor(Math.random() * _width) + 1;
                 const y = Math.floor(Math.random() * _height) + 1;
                 _superApplesArray.push(new SuperApple(x, y));
@@ -112,9 +112,6 @@ class Game {
 
         let _addPoint = (value) => {
             _pointsSpan.textContent = _points = _points + value;
-
-            var audio = new Audio('ping.mp3');
-            audio.play();
         }
 
         let _clearPoints = () => {
@@ -134,13 +131,24 @@ class Game {
             let pointToTeleport = _getPointToTeleport(head)
 
             if (appleToEat) {
-                _snake.eatApple(appleToEat.getX(), appleToEat.getY());
                 _applesArray.splice(_applesArray.indexOf(appleToEat), 1);
+
+                _snake.eatApple(appleToEat.getX(), appleToEat.getY());
+
+                var audio = new Audio('ping.mp3');
+                audio.play();
                 _addPoint(1);
                 _snake.move(_snakeDirection);
             } else if (superAppleToEat) {
-                _snake.eatApple(head.getX(), head.getY());
                 _superApplesArray.splice(_superApplesArray.indexOf(superAppleToEat), 1);
+
+                _snake.eatApple(head.getX(), head.getY());
+                snakeTmp.move(_snakeDirection);
+                head = snakeTmp.getHead();
+                _snake.eatApple(head.getX(), head.getY());
+
+                var audio = new Audio('pong.wav');
+                audio.play();
                 _addPoint(10);
                 _snake.move(_snakeDirection);
             } else if (pointToTeleport) {
