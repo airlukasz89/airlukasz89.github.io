@@ -13,8 +13,8 @@ class InputManager {
 
         let _addClickedListener = (button) => {
             button.addEventListener('click', (e) => {
-                let target = e.target;
-                _divChosen = Directions.GetDirectionFromButton(target.className);
+                let target = e.target.tagName === "DIV" ? e.target : e.target.parentNode;
+                _divChosen = Directions.GetDirectionFromButton(target.dataset.direction);
 
             })
         }

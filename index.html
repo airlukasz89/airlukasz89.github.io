@@ -57,11 +57,11 @@
     </div> -->
     <!----------------------------------------------------------------------------------------------------------->
     <div class="keys">
-      <div class="up arr">&#9650</div>
+      <div class="arr" data-direction="up"><i class="fa fa-arrow-up"></i></div>
       <br />
-      <div class="left arr">&#9668</div>
-      <div class="down arr">&#9660</div>
-      <div class="right arr">&#9658</div>
+      <div class="arr" data-direction="left"><i class="fa fa-arrow-left"></i></div>
+      <div class="arr" data-direction="down"><i class="fa fa-arrow-down"></i></div>
+      <div class="arr" data-direction="right"><i class="fa fa-arrow-right"></i></div>
     </div>
     <br />
     <br />
@@ -105,10 +105,10 @@
 
   <script>
     let snakeElement = document.getElementById("snake");
-    let buttonUp = document.getElementsByClassName('up')[0];
-    let buttonDown = document.getElementsByClassName('down')[0];
-    let buttonRight = document.getElementsByClassName('right')[0];
-    let buttonLeft = document.getElementsByClassName('left')[0];
+    let buttonUp = document.querySelectorAll(`[data-direction*="up"]`)[0];
+    let buttonDown = document.querySelectorAll(`[data-direction*="down"]`)[0];
+    let buttonRight = document.querySelectorAll(`[data-direction*="right"]`)[0];
+    let buttonLeft = document.querySelectorAll(`[data-direction*="left"]`)[0];
     let pointsSpan = document.getElementById("points").getElementsByTagName("span")[0];
 
     let width = 40;
