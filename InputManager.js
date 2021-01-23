@@ -15,7 +15,6 @@ class InputManager {
             button.addEventListener('click', (e) => {
                 let target = e.target.tagName === "DIV" ? e.target : e.target.parentNode;
                 _divChosen = Directions.GetDirectionFromButton(target.dataset.direction);
-
             })
         }
         _addClickedListener(_buttonUp);
