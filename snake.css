@@ -76,3 +76,7 @@
   top: 0;
   left: 275px;
 }  */
+
+.disable-dbl-tap-zoom {
+  touch-action: manipulation;
+}
