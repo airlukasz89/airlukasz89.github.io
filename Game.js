@@ -195,5 +195,14 @@ class Game {
                 this.render();
             }, 100);
         }
+
+        let _x = () => {
+            setTimeout(() => {
+                var audio = new Audio('ping.mp3');
+                audio.play();
+                _x();
+            }, 100)
+        }
+        _x();
     }
 }

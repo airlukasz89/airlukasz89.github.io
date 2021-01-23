@@ -45,7 +45,7 @@ class Display {
 
             for (let x = 0; x < _width; x++) {
                 for (let y = 0; y < _height; y++) {
-                    _grid[x][y].html = document.querySelector("#snake > div > div:nth-child(" + (x + 1) + ") > div:nth-child(" + (y + 1) + ")");
+                    _grid[x][y].html = _element.querySelector("div > div:nth-child(" + (x + 1) + ") > div:nth-child(" + (y + 1) + ")");
                 }
             }
         }
