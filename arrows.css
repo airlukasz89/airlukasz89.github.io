@@ -13,13 +13,13 @@ html {
 
 .arr {
   cursor: pointer;
-  width: 100px;
-  height: 100px;
+  width: 70px;
+  height: 70px;
   text-align: center;
-  line-height: 100px;
+  line-height: 50px;
   background: grey;
   color: white;
-  font-size: 50px;
+  font-size: 35px;
   border-right: 10px solid #4d4d4d;
   border-bottom: 10px solid #4d4d4d;
   border-left: 10px solid #5a5a5a;
