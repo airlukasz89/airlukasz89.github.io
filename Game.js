@@ -14,26 +14,36 @@ class Game {
         let _nextSpeedUpPoints = 10;
         let _gameInterval;
 
+        let _generateRandom = (max, execptArray) => {
+            let number = Math.floor(Math.random() * max) + 1;
+            const coliding = execptArray.filter(element => element == number);
+
+            if (coliding.length > 0) {
+                return _generateRandom(max, execptArray);
+            }
+
+            return number;
+        }
+
         let _initApples = () => {
             _applesArray = [];
-            for (let i = 0; i < 30; i++) {
-                const x = Math.floor(Math.random() * _width) + 1;
-                const y = Math.floor(Math.random() * _height) + 1;
+            for (let i = 0; i < 2; i++) {
+                const x = _generateRandom(_width - 1, []);
+                const y = _generateRandom(_height - 1, []);
                 _applesArray.push(new Apple(x, y));
             }
         }
 
         let _initSuperApples = () => {
             _superApplesArray = [];
-            for (let i = 0; i < 10; i++) {
-                const x = Math.floor(Math.random() * _width) + 1;
-                const y = Math.floor(Math.random() * _height) + 1;
+            for (let i = 0; i < 15; i++) {
+                const x = _generateRandom(_width - 2, []);
+                const y = _generateRandom(_height - 2, []);
                 _superApplesArray.push(new SuperApple(x, y));
             }
         }
 
-        _initApples();
-        _initSuperApples();
+
 
         let _getAppleToEat = (head) => {
             for (const apple of _applesArray) {
@@ -178,6 +188,13 @@ class Game {
             if (_snake.isSelfColiding()) {
                 _restartGameplay()
             }
+
+            if (_applesArray.length <= 0 && _superApplesArray.length <= 0) {
+                _initApples();
+                _initSuperApples();
+                this.stop();
+            }
+
         }
 
         let _changeApplesColor = (applesArray) => {
@@ -217,6 +234,9 @@ class Game {
             clearInterval(_gameInterval);
             _gameInterval = null;
         }
+
+        _initApples();
+        _initSuperApples();
 
         // let _x = () => {
         //     setTimeout(() => {
