@@ -10,6 +10,9 @@ class Game {
         let _points = 0;
         let _applesArray = [];
         let _superApplesArray = [];
+        let _deley = 400;
+        let _nextSpeedUpPoints = 10;
+        let _gameInterval;
 
         let _initApples = () => {
             _applesArray = [];
@@ -128,7 +131,16 @@ class Game {
 
             let appleToEat = _getAppleToEat(head);
             let superAppleToEat = _getSuperAppleToEat(head);
-            let pointToTeleport = _getPointToTeleport(head)
+            let pointToTeleport = _getPointToTeleport(head);
+
+            let _accelerateSnakeMove = () => {
+                this.stop();
+                _deley -= 30;
+                this.start();
+                _nextSpeedUpPoints += 5;
+                console.log(_deley);
+
+            }
 
             if (appleToEat) {
                 _applesArray.splice(_applesArray.indexOf(appleToEat), 1);
@@ -149,7 +161,7 @@ class Game {
 
                 var audio = new Audio('pong.wav');
                 audio.play();
-                _addPoint(10);
+                _addPoint(4);
                 _snake.move(_snakeDirection);
             } else if (pointToTeleport) {
                 _snake.teleport(pointToTeleport.x, pointToTeleport.y);
@@ -157,7 +169,10 @@ class Game {
                 _snake.move(_snakeDirection);
             }
 
+            if (_points > _nextSpeedUpPoints) {
 
+                _accelerateSnakeMove();
+            }
 
 
             if (_snake.isSelfColiding()) {
@@ -189,20 +204,27 @@ class Game {
             _display.render();
         }
 
+
+
         this.start = () => {
-            setInterval(() => {
+            _gameInterval = setInterval(() => {
                 this.updateLogic();
                 this.render();
-            }, 100);
+            }, _deley);
         }
 
-        let _x = () => {
-            setTimeout(() => {
-                var audio = new Audio('ping.mp3');
-                audio.play();
-                _x();
-            }, 100)
+        this.stop = () => {
+            clearInterval(_gameInterval);
+            _gameInterval = null;
         }
-        _x();
+
+        // let _x = () => {
+        //     setTimeout(() => {
+        //         var audio = new Audio('ping.mp3');
+        //         audio.play();
+        //         _x();
+        //     }, 100)
+        // }
+        // _x();
     }
 }

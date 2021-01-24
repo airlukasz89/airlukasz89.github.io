@@ -83,8 +83,8 @@ class Display {
                 return Math.floor(Math.random() * (max - min + 1)) + min;
             }
 
-            //pixel.color = color;
-            pixel.color = "rgb(" + getRandomInt(0, 255) + ", " + getRandomInt(0, 255) + "," + getRandomInt(0, 255) + ")";
+            pixel.color = color;
+            // pixel.color = "rgb(" + getRandomInt(0, 255) + ", " + getRandomInt(0, 255) + "," + getRandomInt(0, 255) + ")";
         }
 
         this.render = () => {
