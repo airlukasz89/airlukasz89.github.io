@@ -13,6 +13,7 @@ class Game {
         let _delay = 400;
         let _nextSpeedUpPoints = 10;
         let _gameInterval;
+        let _wallsArray = [];
 
         let _generateRandom = (max, execptArray) => {
             let number = Math.floor(Math.random() * max) + 1;
@@ -28,15 +29,22 @@ class Game {
         let _getUsedPlaces = () => {
             let apples = _applesArray.concat(Enumerable.from(_superApplesArray)
                 .selectMany(
-                    app => Enumerable.from(app.getApples())
-                    .toArray()
+                    app => app.getApples()
                 )
                 .toArray());
 
-            return apples.map(app => ({
+            let wallsPoints = Enumerable.from(_wallsArray)
+                .selectMany(
+                    wall => wall.getPoints()
+                )
+                .toArray();
+
+            let applesPoints = apples.map(app => ({
                 x: app.getX(),
                 y: app.getY()
             }));
+
+            return wallsPoints.concat(applesPoints)
         }
 
         let _initApples = () => {
@@ -52,10 +60,7 @@ class Game {
 
                 execptXes.push(x);
                 execptYes.push(y);
-
             }
-
-
         }
 
         let _initSuperApples = () => {
@@ -65,8 +70,8 @@ class Game {
             let execptYes = _getUsedPlaces().map(p => p.y);
 
             for (let i = 0; i < 15; i++) {
-                const x = _generateRandom(_width - 2, []);
-                const y = _generateRandom(_height - 2, []);
+                const x = _generateRandom(_width - 2, execptXes);
+                const y = _generateRandom(_height - 2, execptYes);
                 let superApple = new SuperApple(x, y);
                 _superApplesArray.push(superApple);
                 for (const apple of superApple.getApples()) {
@@ -75,7 +80,26 @@ class Game {
                 }
 
             }
+        }
 
+        let _initWalls = () => {
+            _wallsArray = [];
+            let execptXes = _getUsedPlaces().map(p => p.x);
+            let execptYes = _getUsedPlaces().map(p => p.y);
+
+            for (let i = 0; i < 5; i++) {
+                const x = _generateRandom(_width - 3, execptXes);
+                const y = _generateRandom(_height - 3, execptYes);
+                let wall = new Wall(x, y);
+                _wallsArray.push(wall);
+                for (const point of wall.getPoints()) {
+                    execptXes.push(point.x);
+                    execptYes.push(point.y);
+                }
+
+            }
+
+            console.log(Enumerable.from(_wallsArray).selectMany(wall => wall.getPoints()).toArray())
         }
 
 
@@ -265,6 +289,12 @@ class Game {
                 _changeApplesColor(superApple.getApples())
             }
 
+            for (const wall of _wallsArray) {
+                for (const point of wall.getPoints()) {
+                    _display.changeColor(point.x, point.y, "orange")
+                }
+            }
+
             _display.render();
         }
 
@@ -285,7 +315,8 @@ class Game {
 
         _initApples();
         _initSuperApples();
-
+        _initWalls();
+        this.start();
         // let _x = () => {
         //     setTimeout(() => {
         //         var audio = new Audio('ping.mp3');
