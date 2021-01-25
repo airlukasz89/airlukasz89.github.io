@@ -10,7 +10,7 @@ class Game {
         let _points = 0;
         let _applesArray = [];
         let _superApplesArray = [];
-        let _deley = 400;
+        let _delay = 400;
         let _nextSpeedUpPoints = 10;
         let _gameInterval;
 
@@ -25,22 +25,57 @@ class Game {
             return number;
         }
 
+        let _getUsedPlaces = () => {
+            let apples = _applesArray.concat(Enumerable.from(_superApplesArray)
+                .selectMany(
+                    app => Enumerable.from(app.getApples())
+                    .toArray()
+                )
+                .toArray());
+
+            return apples.map(app => ({
+                x: app.getX(),
+                y: app.getY()
+            }));
+        }
+
         let _initApples = () => {
             _applesArray = [];
+
+            let execptXes = _getUsedPlaces().map(p => p.x);
+            let execptYes = _getUsedPlaces().map(p => p.y);
+
             for (let i = 0; i < 2; i++) {
-                const x = _generateRandom(_width - 1, []);
-                const y = _generateRandom(_height - 1, []);
+                const x = _generateRandom(_width - 1, execptXes);
+                const y = _generateRandom(_height - 1, execptYes);
                 _applesArray.push(new Apple(x, y));
+
+                execptXes.push(x);
+                execptYes.push(y);
+
             }
+
+
         }
 
         let _initSuperApples = () => {
             _superApplesArray = [];
+
+            let execptXes = _getUsedPlaces().map(p => p.x);
+            let execptYes = _getUsedPlaces().map(p => p.y);
+
             for (let i = 0; i < 15; i++) {
                 const x = _generateRandom(_width - 2, []);
                 const y = _generateRandom(_height - 2, []);
-                _superApplesArray.push(new SuperApple(x, y));
+                let superApple = new SuperApple(x, y);
+                _superApplesArray.push(superApple);
+                for (const apple of superApple.getApples()) {
+                    execptXes.push(apple.getX());
+                    execptYes.push(apple.getY());
+                }
+
             }
+
         }
 
 
@@ -114,6 +149,20 @@ class Game {
             return newSnakeDirection;
         }
 
+        let _rerunIntervalWithDelay = (newDelay) => {
+            this.stop();
+            _delay = newDelay;
+            this.start();
+        }
+
+        let _accelerateSnakeMove = () => {
+            _rerunIntervalWithDelay(_delay - 30);
+            _nextSpeedUpPoints += 5;
+            console.log(_delay);
+
+        }
+
+
         let _restartGameplay = () => {
             _snake = new Snake(width / 2, height / 2);
             _initApples();
@@ -121,6 +170,7 @@ class Game {
             _snakeDirection = null;
             _inputManager.reset();
             _clearPoints()
+            _rerunIntervalWithDelay(400);
         }
 
         let _addPoint = (value) => {
@@ -129,6 +179,12 @@ class Game {
 
         let _clearPoints = () => {
             _pointsSpan.textContent = _points = 0;
+        }
+
+        let _goToNextLevel = () => {
+            _initApples();
+            _initSuperApples();
+            _rerunIntervalWithDelay(400);
         }
 
         this.updateLogic = () => {
@@ -143,14 +199,6 @@ class Game {
             let superAppleToEat = _getSuperAppleToEat(head);
             let pointToTeleport = _getPointToTeleport(head);
 
-            let _accelerateSnakeMove = () => {
-                this.stop();
-                _deley -= 30;
-                this.start();
-                _nextSpeedUpPoints += 5;
-                console.log(_deley);
-
-            }
 
             if (appleToEat) {
                 _applesArray.splice(_applesArray.indexOf(appleToEat), 1);
@@ -180,7 +228,6 @@ class Game {
             }
 
             if (_points > _nextSpeedUpPoints) {
-
                 _accelerateSnakeMove();
             }
 
@@ -189,10 +236,10 @@ class Game {
                 _restartGameplay()
             }
 
+
+
             if (_applesArray.length <= 0 && _superApplesArray.length <= 0) {
-                _initApples();
-                _initSuperApples();
-                this.stop();
+                _goToNextLevel();
             }
 
         }
@@ -227,12 +274,13 @@ class Game {
             _gameInterval = setInterval(() => {
                 this.updateLogic();
                 this.render();
-            }, _deley);
+            }, _delay);
         }
 
         this.stop = () => {
             clearInterval(_gameInterval);
             _gameInterval = null;
+
         }
 
         _initApples();

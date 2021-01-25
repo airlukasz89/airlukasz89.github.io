@@ -96,6 +96,8 @@
       }, false);
     }
   </script>
+
+  <script src="linq.js"></script>
   <script src="main.js"></script>
   <script src="main2.js"></script>
   <script src="main4.js"></script>
@@ -119,6 +121,8 @@
 
     let width = 40;
     let height = 40;
+
+    console.log(Enumerable.range(1, 10).where(val => val > 6).toArray());
 
     const game = new Game(height, width, snakeElement, buttonUp, buttonDown, buttonRight, buttonLeft, pointsSpan);
     game.start();
