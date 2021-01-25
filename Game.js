@@ -15,15 +15,19 @@ class Game {
         let _gameInterval;
         let _wallsArray = [];
 
-        let _generateRandom = (max, execptArray) => {
-            let number = Math.floor(Math.random() * max) + 1;
-            const coliding = execptArray.filter(element => element == number);
+        let _generateRandom = (maxX, maxY, execptArray) => {
+            let x = Math.floor(Math.random() * maxX) + 1;
+            let y = Math.floor(Math.random() * maxY) + 1;
+            const coliding = execptArray.filter(p => p.x == x && p.y == y);
 
             if (coliding.length > 0) {
-                return _generateRandom(max, execptArray);
+                return _generateRandom(maxX, maxY, execptArray);
             }
 
-            return number;
+            return {
+                x: x,
+                y: y
+            };
         }
 
         let _getUsedPlaces = () => {
@@ -50,33 +54,27 @@ class Game {
         let _initApples = () => {
             _applesArray = [];
 
-            let execptXes = _getUsedPlaces().map(p => p.x);
-            let execptYes = _getUsedPlaces().map(p => p.y);
+            let execpt = _getUsedPlaces();
 
             for (let i = 0; i < 2; i++) {
-                const x = _generateRandom(_width - 1, execptXes);
-                const y = _generateRandom(_height - 1, execptYes);
-                _applesArray.push(new Apple(x, y));
+                const point = _generateRandom(_width - 1, _height - 1, execpt);
+                _applesArray.push(new Apple(point.x, point.y));
 
-                execptXes.push(x);
-                execptYes.push(y);
+                execpt.push(point);
             }
         }
 
         let _initSuperApples = () => {
             _superApplesArray = [];
 
-            let execptXes = _getUsedPlaces().map(p => p.x);
-            let execptYes = _getUsedPlaces().map(p => p.y);
+            let execpt = _getUsedPlaces();
 
             for (let i = 0; i < 15; i++) {
-                const x = _generateRandom(_width - 2, execptXes);
-                const y = _generateRandom(_height - 2, execptYes);
-                let superApple = new SuperApple(x, y);
+                const point = _generateRandom(_width - 1, _height - 1, execpt);
+                let superApple = new SuperApple(point.x, point.y);
                 _superApplesArray.push(superApple);
                 for (const apple of superApple.getApples()) {
-                    execptXes.push(apple.getX());
-                    execptYes.push(apple.getY());
+                    execpt.push(point);
                 }
 
             }
@@ -84,17 +82,14 @@ class Game {
 
         let _initWalls = () => {
             _wallsArray = [];
-            let execptXes = _getUsedPlaces().map(p => p.x);
-            let execptYes = _getUsedPlaces().map(p => p.y);
+            let execpt = _getUsedPlaces();
 
             for (let i = 0; i < 5; i++) {
-                const x = _generateRandom(_width - 3, execptXes);
-                const y = _generateRandom(_height - 3, execptYes);
-                let wall = new Wall(x, y);
+                const point = _generateRandom(_width - 1, _height - 1, execpt);
+                let wall = new Wall(point.x, point.y);
                 _wallsArray.push(wall);
-                for (const point of wall.getPoints()) {
-                    execptXes.push(point.x);
-                    execptYes.push(point.y);
+                for (const p of wall.getPoints()) {
+                    execpt.push(point);
                 }
 
             }
@@ -285,14 +280,16 @@ class Game {
 
             _changeApplesColor(_applesArray);
 
-            for (const superApple of _superApplesArray) {
-                _changeApplesColor(superApple.getApples())
-            }
 
             for (const wall of _wallsArray) {
                 for (const point of wall.getPoints()) {
                     _display.changeColor(point.x, point.y, "orange")
                 }
+            }
+
+
+            for (const superApple of _superApplesArray) {
+                _changeApplesColor(superApple.getApples())
             }
 
             _display.render();
