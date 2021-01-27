@@ -10,7 +10,7 @@ class Game {
         let _points = 0;
         let _applesArray = [];
         let _superApplesArray = [];
-        let _delay = 400;
+        let _delay = 200;
         let _nextSpeedUpPoints = 10;
         let _gameInterval;
         let _wallsArray = [];
@@ -48,7 +48,19 @@ class Game {
                 y: app.getY()
             }));
 
-            return wallsPoints.concat(applesPoints)
+            let head = _snake.getHead();
+            let deadZoneSize = 8;
+            let snakeDeadZone = [];
+            for (let x = head.getX() - deadZoneSize; x < head.getX() + deadZoneSize; x++) {
+                for (let y = head.getY() - deadZoneSize; y < head.getY() + deadZoneSize; y++) {
+                    snakeDeadZone.push({
+                        x: x,
+                        y: y
+                    })
+                }
+            }
+
+            return wallsPoints.concat(applesPoints).concat(snakeDeadZone);
         }
 
         let _initApples = () => {
@@ -69,7 +81,7 @@ class Game {
 
             let execpt = _getUsedPlaces();
 
-            for (let i = 0; i < 15; i++) {
+            for (let i = 0; i < 3; i++) {
                 const point = _generateRandom(_width - 1, _height - 1, execpt);
                 let superApple = new SuperApple(point.x, point.y);
                 _superApplesArray.push(superApple);
@@ -193,7 +205,7 @@ class Game {
             _snakeDirection = null;
             _inputManager.reset();
             _clearPoints()
-            _rerunIntervalWithDelay(400);
+            _rerunIntervalWithDelay(200);
         }
 
         let _addPoint = (value) => {
@@ -209,24 +221,36 @@ class Game {
             _initApples();
             _initSuperApples();
             _initWalls();
-            _rerunIntervalWithDelay(400);
+            _rerunIntervalWithDelay(200);
         }
 
         let _isWallSnakeColiding = () => {
-
             let pointsWall = Enumerable.from(_wallsArray).selectMany(wall => wall.getPoints()).toArray();
-            let currentSegment = _snake.getHead();
-            while (currentSegment) {
-                const coliding = pointsWall.filter(point => point.x == currentSegment.getX() && point.y == currentSegment.getY());
-                if (coliding.length > 0) {
-                    console.log('kolizja ze ścianą')
-                    return true;
-                }
+            let head = _snake.getHead();
 
-                currentSegment = currentSegment.getNext();
+            const coliding = pointsWall.filter(point => point.x == head.getX() && point.y == head.getY());
+            if (coliding.length > 0) {
+                console.log('kolizja ze ścianą')
+                return true;
             }
 
+
+
+
             return false;
+            // let pointsWall = Enumerable.from(_wallsArray).selectMany(wall => wall.getPoints()).toArray();
+            // let currentSegment = _snake.getHead();
+            // while (currentSegment) {
+            //     const coliding = pointsWall.filter(point => point.x == currentSegment.getX() && point.y == currentSegment.getY());
+            //     if (coliding.length > 0) {
+            //         console.log('kolizja ze ścianą')
+            //         return true;
+            //     }
+
+            //     currentSegment = currentSegment.getNext();
+            // }
+
+            // return false;
         }
 
         this.updateLogic = () => {
