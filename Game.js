@@ -60,7 +60,19 @@ class Game {
                 }
             }
 
-            return wallsPoints.concat(applesPoints).concat(snakeDeadZone);
+
+            let currentSegment = head;
+            let snakePoints = [];
+            while (currentSegment) {
+                snakePoints.push({
+                    x: currentSegment.getX(),
+                    y: currentSegment.getY()
+                })
+
+                currentSegment = currentSegment.getNext();
+            }
+
+            return wallsPoints.concat(applesPoints).concat(snakeDeadZone).concat(snakePoints);
         }
 
         let _initApples = () => {
@@ -99,7 +111,7 @@ class Game {
             _wallsArray = [];
             let execpt = _getUsedPlaces();
 
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 25; i++) {
                 const point = _generateRandom(_width - 1, _height - 1, execpt);
                 let wall = new Wall(point.x, point.y);
                 _wallsArray.push(wall);
@@ -218,9 +230,9 @@ class Game {
         }
 
         let _goToNextLevel = () => {
-            _initApples();
-            _initSuperApples();
             _initWalls();
+            _initSuperApples();
+            _initApples();
             _rerunIntervalWithDelay(200);
         }
 
