@@ -74,7 +74,10 @@ class Game {
                 let superApple = new SuperApple(point.x, point.y);
                 _superApplesArray.push(superApple);
                 for (const apple of superApple.getApples()) {
-                    execpt.push(point);
+                    execpt.push({
+                        x: apple.getX(),
+                        y: apple.getY()
+                    });
                 }
 
             }
@@ -84,12 +87,12 @@ class Game {
             _wallsArray = [];
             let execpt = _getUsedPlaces();
 
-            for (let i = 0; i < 5; i++) {
+            for (let i = 0; i < 10; i++) {
                 const point = _generateRandom(_width - 1, _height - 1, execpt);
                 let wall = new Wall(point.x, point.y);
                 _wallsArray.push(wall);
                 for (const p of wall.getPoints()) {
-                    execpt.push(point);
+                    execpt.push(p);
                 }
 
             }
@@ -186,6 +189,7 @@ class Game {
             _snake = new Snake(width / 2, height / 2);
             _initApples();
             _initSuperApples();
+            _wallsArray = [];
             _snakeDirection = null;
             _inputManager.reset();
             _clearPoints()
@@ -198,12 +202,31 @@ class Game {
 
         let _clearPoints = () => {
             _pointsSpan.textContent = _points = 0;
+            _nextSpeedUpPoints = 10;
         }
 
         let _goToNextLevel = () => {
             _initApples();
             _initSuperApples();
+            _initWalls();
             _rerunIntervalWithDelay(400);
+        }
+
+        let _isWallSnakeColiding = () => {
+
+            let pointsWall = Enumerable.from(_wallsArray).selectMany(wall => wall.getPoints()).toArray();
+            let currentSegment = _snake.getHead();
+            while (currentSegment) {
+                const coliding = pointsWall.filter(point => point.x == currentSegment.getX() && point.y == currentSegment.getY());
+                if (coliding.length > 0) {
+                    console.log('kolizja ze ścianą')
+                    return true;
+                }
+
+                currentSegment = currentSegment.getNext();
+            }
+
+            return false;
         }
 
         this.updateLogic = () => {
@@ -251,7 +274,7 @@ class Game {
             }
 
 
-            if (_snake.isSelfColiding()) {
+            if (_snake.isSelfColiding() || _isWallSnakeColiding()) {
                 _restartGameplay()
             }
 
@@ -312,7 +335,7 @@ class Game {
 
         _initApples();
         _initSuperApples();
-        _initWalls();
+
         this.start();
         // let _x = () => {
         //     setTimeout(() => {
