@@ -1,5 +1,5 @@
 class Game {
-    constructor(height, width, htmlElement, buttonUp, buttonRight, buttonDown, buttonLeft, pointsSpan) {
+    constructor(height, width, htmlElement, buttonUp, buttonRight, buttonDown, buttonLeft, pointsSpan, scoreLabel) {
         let _display = new Display(height, width, htmlElement);
         let _width = width;
         let _height = height;
@@ -14,11 +14,14 @@ class Game {
         let _nextSpeedUpPoints = 10;
         let _gameInterval;
         let _wallsArray = [];
+        let _scoreLabel = scoreLabel;
 
 
 
 
-        async function _postData(url = '', data = {}, method) {
+
+
+        async function _fetch(url = '', data = {}, method) {
             let fetchData = {
                 method: method, // *GET, POST, PUT, DELETE, etc.
                 mode: 'cors', // no-cors, *cors, same-origin
@@ -43,10 +46,22 @@ class Game {
             return response.json(); // parses JSON response into native JavaScript objects
         }
 
-        _postData('https://snejkdatabase-0b0e.restdb.io/rest/records', {}, "GET")
-            .then(data => {
-                console.log(data); // JSON data parsed by `data.json()` call
-            });
+        let _updateScores = () => {
+            _fetch('https://snejkdatabase-0b0e.restdb.io/rest/records', {}, "GET")
+                .then(recordsArray => {
+                    _scoreLabel.innerHTML = "";
+                    recordsArray = recordsArray.sort((record1, record2) => record2.points - record1.points);
+                    for (let i = 0; i < recordsArray.length; i++) {
+                        let record = recordsArray[i];
+
+                        _scoreLabel.innerHTML += `${i+1}. ${record.name} - ${record.points} <br/>`.toUpperCase();
+
+
+                    }
+
+                    console.log(recordsArray); // JSON data parsed by `data.json()` call
+                });
+        }
 
         let _generateRandom = (maxX, maxY, execptArray) => {
             let x = Math.floor(Math.random() * maxX) + 1;
@@ -244,12 +259,12 @@ class Game {
 
         let _restartGameplay = () => {
             let name = prompt("Please enter your name");
-            _postData('https://snejkdatabase-0b0e.restdb.io/rest/records', {
+            _fetch('https://snejkdatabase-0b0e.restdb.io/rest/records', {
                     name: name,
                     points: _points
                 }, "POST")
                 .then(data => {
-                    console.log(data); // JSON data parsed by `data.json()` call
+                    _updateScores()
                 });
 
             _snake = new Snake(width / 2, height / 2);
@@ -354,6 +369,7 @@ class Game {
 
             if (_snake.isSelfColiding() || _isWallSnakeColiding()) {
                 _restartGameplay()
+
             }
 
 
@@ -413,6 +429,7 @@ class Game {
 
         _initApples();
         _initSuperApples();
+        _updateScores();
 
         this.start();
         // let _x = () => {

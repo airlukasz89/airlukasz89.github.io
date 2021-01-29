@@ -47,6 +47,7 @@
   </section>
   <section>
     <p id="points">POINTS: <span>0</span></p>
+    <p id="scores"></p>
     <div id="snake"></div>
     <!-- <div class="buttons">
 
@@ -81,6 +82,8 @@
       <div class="b"></div>
       <div class="a"></div>
     </div>
+
+
 
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     <!----------------------------------------------------------------------------------------------------------->
@@ -119,13 +122,15 @@
     let buttonRight = document.querySelectorAll(`[data-direction*="right"]`)[0];
     let buttonLeft = document.querySelectorAll(`[data-direction*="left"]`)[0];
     let pointsSpan = document.getElementById("points").getElementsByTagName("span")[0];
+    let scoresElement = document.getElementById("scores");
 
     let width = 40;
     let height = 40;
 
     console.log(Enumerable.range(1, 10).where(val => val > 6).toArray());
 
-    const game = new Game(height, width, snakeElement, buttonUp, buttonDown, buttonRight, buttonLeft, pointsSpan);
+    const game = new Game(height, width, snakeElement, buttonUp, buttonDown, buttonRight, buttonLeft, pointsSpan,
+      scoresElement);
     //game.start();
   </script>
 </body>
