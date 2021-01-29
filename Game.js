@@ -15,6 +15,39 @@ class Game {
         let _gameInterval;
         let _wallsArray = [];
 
+
+
+
+        async function _postData(url = '', data = {}, method) {
+            let fetchData = {
+                method: method, // *GET, POST, PUT, DELETE, etc.
+                mode: 'cors', // no-cors, *cors, same-origin
+                cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+                credentials: 'same-origin', // include, *same-origin, omit
+                headers: {
+                    'Content-Type': 'application/json',
+                    "x-apikey": '601461426adfba69db8b6b55'
+                    // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                redirect: 'follow', // manual, *follow, error
+                referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+                // body: JSON.stringify(data) // body data type must match "Content-Type" header
+            }
+
+            if (method === "POST") {
+                fetchData["body"] = JSON.stringify(data);
+            }
+
+            // Default options are marked with *
+            const response = await fetch(url, fetchData);
+            return response.json(); // parses JSON response into native JavaScript objects
+        }
+
+        _postData('https://snejkdatabase-0b0e.restdb.io/rest/records', {}, "GET")
+            .then(data => {
+                console.log(data); // JSON data parsed by `data.json()` call
+            });
+
         let _generateRandom = (maxX, maxY, execptArray) => {
             let x = Math.floor(Math.random() * maxX) + 1;
             let y = Math.floor(Math.random() * maxY) + 1;
@@ -210,6 +243,15 @@ class Game {
 
 
         let _restartGameplay = () => {
+            let name = prompt("Please enter your name");
+            _postData('https://snejkdatabase-0b0e.restdb.io/rest/records', {
+                    name: name,
+                    points: _points
+                }, "POST")
+                .then(data => {
+                    console.log(data); // JSON data parsed by `data.json()` call
+                });
+
             _snake = new Snake(width / 2, height / 2);
             _initApples();
             _initSuperApples();
