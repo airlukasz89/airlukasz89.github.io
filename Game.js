@@ -51,11 +51,11 @@ class Game {
                 .then(recordsArray => {
                     _scoreLabel.innerHTML = "";
                     recordsArray = recordsArray.sort((record1, record2) => record2.points - record1.points);
+                    recordsArray = recordsArray.slice(0, 10);
                     for (let i = 0; i < recordsArray.length; i++) {
                         let record = recordsArray[i];
 
                         _scoreLabel.innerHTML += `${i+1}. ${record.name} - ${record.points} <br/>`.toUpperCase();
-
 
                     }
 
@@ -430,6 +430,10 @@ class Game {
         _initApples();
         _initSuperApples();
         _updateScores();
+
+        setInterval(() => {
+            _updateScores();
+        }, 5000);
 
         this.start();
         // let _x = () => {
