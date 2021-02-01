@@ -15,7 +15,7 @@ class Game {
         let _gameInterval;
         let _wallsArray = [];
         let _scoreLabel = scoreLabel;
-
+        let _wallsInGame = 0;
 
 
 
@@ -120,53 +120,81 @@ class Game {
                 currentSegment = currentSegment.getNext();
             }
 
-            return wallsPoints.concat(applesPoints).concat(snakeDeadZone).concat(snakePoints);
+            let points = wallsPoints.concat(applesPoints).concat(snakeDeadZone).concat(snakePoints);
+
+            return Enumerable
+                .from(points)
+                .selectMany(p => [{
+                        x: p.x - 1,
+                        y: p.y - 1
+                    },
+                    {
+                        x: p.x,
+                        y: p.y - 1
+                    },
+                    {
+                        x: p.x + 1,
+                        y: p.y - 1
+                    },
+
+                    {
+                        x: p.x - 1,
+                        y: p.y
+                    },
+                    {
+                        x: p.x,
+                        y: p.y
+                    },
+                    {
+                        x: p.x + 1,
+                        y: p.y
+                    },
+
+                    {
+                        x: p.x - 1,
+                        y: p.y + 1
+                    },
+                    {
+                        x: p.x,
+                        y: p.y + 1
+                    },
+                    {
+                        x: p.x + 1,
+                        y: p.y + 1
+                    },
+                ])
+                .toArray();
         }
 
         let _initApples = () => {
             _applesArray = [];
 
-            let execpt = _getUsedPlaces();
-
             for (let i = 0; i < 2; i++) {
+                let execpt = _getUsedPlaces();
                 const point = _generateRandom(_width - 1, _height - 1, execpt);
                 _applesArray.push(new Apple(point.x, point.y));
-
-                execpt.push(point);
             }
         }
 
         let _initSuperApples = () => {
             _superApplesArray = [];
 
-            let execpt = _getUsedPlaces();
-
             for (let i = 0; i < 3; i++) {
+                let execpt = _getUsedPlaces();
                 const point = _generateRandom(_width - 1, _height - 1, execpt);
                 let superApple = new SuperApple(point.x, point.y);
                 _superApplesArray.push(superApple);
-                for (const apple of superApple.getApples()) {
-                    execpt.push({
-                        x: apple.getX(),
-                        y: apple.getY()
-                    });
-                }
-
             }
         }
 
         let _initWalls = () => {
             _wallsArray = [];
-            let execpt = _getUsedPlaces();
 
-            for (let i = 0; i < 25; i++) {
+            for (let i = 0; i < _wallsInGame; i++) {
+                let execpt = _getUsedPlaces();
                 const point = _generateRandom(_width - 1, _height - 1, execpt);
                 let wall = new Wall(point.x, point.y);
                 _wallsArray.push(wall);
-                for (const p of wall.getPoints()) {
-                    execpt.push(p);
-                }
-
             }
 
             console.log(Enumerable.from(_wallsArray).selectMany(wall => wall.getPoints()).toArray())
@@ -300,6 +328,7 @@ class Game {
         }
 
         let _goToNextLevel = () => {
+            _wallsInGame += 5;
             _initWalls();
             _initSuperApples();
             _initApples();
