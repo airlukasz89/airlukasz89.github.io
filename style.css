@@ -5,6 +5,10 @@
 
 }
 
+body {
+  background-color: rgb(40, 40, 40)
+}
+
 html {
   font-family: arial, sans-serif;
   /* font-size: 10px; */
