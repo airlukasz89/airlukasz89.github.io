@@ -55,8 +55,7 @@ class Game {
                     for (let i = 0; i < recordsArray.length; i++) {
                         let record = recordsArray[i];
 
-                        _scoreLabel.innerHTML += `${i+1}. ${record.name} - ${record.points} <br/>`.toUpperCase();
-
+                        _scoreLabel.innerHTML += `${i+1}. ${record.name} - ${record.points} (${record.platform}) <br/>`.toUpperCase();
                     }
 
                     console.log(recordsArray); // JSON data parsed by `data.json()` call
@@ -284,6 +283,29 @@ class Game {
 
         }
 
+        function _getOS() {
+            var userAgent = window.navigator.userAgent,
+                platform = window.navigator.platform,
+                macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
+                windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
+                iosPlatforms = ['iPhone', 'iPad', 'iPod'],
+                os = null;
+
+            if (macosPlatforms.indexOf(platform) !== -1) {
+                os = 'Mac OS';
+            } else if (iosPlatforms.indexOf(platform) !== -1) {
+                os = 'iOS';
+            } else if (windowsPlatforms.indexOf(platform) !== -1) {
+                os = 'Windows';
+            } else if (/Android/.test(userAgent)) {
+                os = 'Android';
+            } else if (!os && /Linux/.test(platform)) {
+                os = 'Linux';
+            }
+
+            return os;
+        }
+
         let _addScore = () => {
             let name = "";
             while (name === "") {
@@ -298,7 +320,8 @@ class Game {
 
             _fetch('https://snejkdatabase-0b0e.restdb.io/rest/records', {
                     name: name,
-                    points: _points
+                    points: _points,
+                    platform: _getOS()
                 }, "POST")
                 .then(data => {
                     _updateScores()
