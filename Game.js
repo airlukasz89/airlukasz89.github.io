@@ -321,7 +321,7 @@ class Game {
             _fetch('https://snejkdatabase-0b0e.restdb.io/rest/records', {
                     name: name,
                     points: _points,
-                    platform: _getOS()
+                    platform: navigator.platform //_getOS()
                 }, "POST")
                 .then(data => {
                     _updateScores()
