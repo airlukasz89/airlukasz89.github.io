@@ -256,9 +256,18 @@ class Game {
 
         }
 
+        let _addScore = () => {
+            let name = "";
+            while (name === "") {
+                name = prompt("Please enter your name");
 
-        let _restartGameplay = () => {
-            let name = prompt("Please enter your name");
+            }
+
+            function truncate(str, n) {
+                return (str.length > n) ? str.substr(0, n - 1) : str;
+            };
+            name = truncate(name, 10)
+
             _fetch('https://snejkdatabase-0b0e.restdb.io/rest/records', {
                     name: name,
                     points: _points
@@ -266,6 +275,10 @@ class Game {
                 .then(data => {
                     _updateScores()
                 });
+        }
+
+        let _restartGameplay = () => {
+            _addScore();
 
             _snake = new Snake(width / 2, height / 2);
             _initApples();
