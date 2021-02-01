@@ -307,7 +307,7 @@ class Game {
 
         let _restartGameplay = () => {
             _addScore();
-
+            _wallsInGame = 0;
             _snake = new Snake(width / 2, height / 2);
             _initApples();
             _initSuperApples();
