@@ -16,6 +16,7 @@ class Game {
         let _wallsArray = [];
         let _scoreLabel = scoreLabel;
         let _wallsInGame = 0;
+        let _speedUpNextLevel = 200;
 
 
 
@@ -307,7 +308,7 @@ class Game {
         }
 
         let _addScore = () => {
-            let name = "";
+            let name;
             do {
                 name = prompt("Please enter your name");
             } while (name == null || name == "");
@@ -350,14 +351,18 @@ class Game {
         let _clearPoints = () => {
             _pointsSpan.textContent = _points = 0;
             _nextSpeedUpPoints = 10;
+            _speedUpNextLevel = 200;
         }
 
         let _goToNextLevel = () => {
             _wallsInGame += 5;
+            _speedUpNextLevel -= 5;
             _initWalls();
             _initSuperApples();
             _initApples();
-            _rerunIntervalWithDelay(200);
+            _rerunIntervalWithDelay(_speedUpNextLevel);
+            console.log("prędkość w nowej planszy " + _speedUpNextLevel)
+
         }
 
         let _isWallSnakeColiding = () => {
