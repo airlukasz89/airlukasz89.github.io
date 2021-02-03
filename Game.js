@@ -308,10 +308,12 @@ class Game {
 
         let _addScore = () => {
             let name = "";
-            while (name === "") {
+            do {
                 name = prompt("Please enter your name");
+            } while (name == null || name == "");
 
-            }
+
+
 
             function truncate(str, n) {
                 return (str.length > n) ? str.substr(0, n - 1) : str;
