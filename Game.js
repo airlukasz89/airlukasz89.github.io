@@ -333,7 +333,7 @@ class Game {
 
                 _nextLevelStartDeley = _startDeley;
                 _rerunIntervalWithDelay(_startDeley);
-            }, 100)
+            }, 500)
 
 
         }
