@@ -10,14 +10,14 @@ class Game {
         let _points = 0;
         let _applesArray = [];
         let _superApplesArray = [];
-        let _nextSpeedUpPoints = 10;
+        let _nextSpeedUpPoints = 7;
         let _gameInterval;
         let _wallsArray = [];
         let _scoreLabel = scoreLabel;
         let _wallsInGame = 0;
-        const _startDeley = 200;
+        const _startDeley = 230;
         let _nextLevelStartDeley = _startDeley;
-        const _nextLevelDiffDeley = 5;
+        const _nextLevelDiffDeley = 10;
         let _currentDeley = _startDeley;
         let _levelSpan = levelSpan;
         let _levels = 1;
@@ -62,8 +62,6 @@ class Game {
 
                         _scoreLabel.innerHTML += `${i+1}. ${record.name} - ${record.points} (${record.platform}) <br/>`.toUpperCase();
                     }
-
-                    console.log(recordsArray); // JSON data parsed by `data.json()` call
                 });
         }
 
@@ -180,10 +178,10 @@ class Game {
             }
         }
 
-        let _initSuperApples = () => {
+        let _initSuperApples = (count) => {
             _superApplesArray = [];
 
-            for (let i = 0; i < 3; i++) {
+            for (let i = 0; i < count; i++) {
                 let execpt = _getUsedPlaces();
                 const point = _generateRandom(_width - 1, _height - 1, execpt);
                 let superApple = new SuperApple(point.x, point.y);
@@ -200,8 +198,6 @@ class Game {
                 let wall = new Wall(point.x, point.y);
                 _wallsArray.push(wall);
             }
-
-            console.log(Enumerable.from(_wallsArray).selectMany(wall => wall.getPoints()).toArray())
         }
 
 
@@ -278,14 +274,13 @@ class Game {
         let _rerunIntervalWithDelay = (newDelay) => {
             this.stop();
             _currentDeley = newDelay;
+            console.log(_currentDeley)
             this.start();
         }
 
         let _accelerateSnakeMove = () => {
+            _nextSpeedUpPoints = _points + 7;
             _rerunIntervalWithDelay(_currentDeley - 30);
-            _nextSpeedUpPoints += 5;
-            console.log(_currentDeley);
-
         }
 
 
@@ -294,6 +289,9 @@ class Game {
             let name;
             do {
                 name = prompt("Please enter your name");
+                if (name != null) {
+                    name = name.trim();
+                }
             } while (name == null || name == "");
 
 
@@ -325,7 +323,7 @@ class Game {
                 _wallsInGame = 0;
                 _snake = new Snake(width / 2, height / 2);
                 _initApples();
-                _initSuperApples();
+                _initSuperApples(3);
                 _wallsArray = [];
                 _snakeDirection = null;
                 _inputManager.reset();
@@ -350,7 +348,7 @@ class Game {
 
         let _clearPoints = () => {
             _pointsSpan.textContent = _points = 0;
-            _nextSpeedUpPoints = 10;
+            _nextSpeedUpPoints = 7;
         }
 
         let _clearLevel = () => {
@@ -364,15 +362,21 @@ class Game {
             var audio = new Audio('nextlevel.mp3');
             audio.play();
 
-            _wallsInGame += 5;
-            _initWalls();
-            _initSuperApples();
-            _initApples();
             _addLevelNumber()
+
+            if (_levels % 2 == 0) {
+                _applesArray = [];
+                _wallsArray = [];
+                _initSuperApples(10);
+            } else {
+                _wallsInGame += 5;
+                _initWalls();
+                _initSuperApples(3);
+                _initApples();
+            }
 
             _nextLevelStartDeley -= _nextLevelDiffDeley;
             _rerunIntervalWithDelay(_nextLevelStartDeley);
-            console.log("prędkość w nowej planszy " + _nextLevelStartDeley);
 
         }
 
@@ -382,12 +386,8 @@ class Game {
 
             const coliding = pointsWall.filter(point => point.x == head.getX() && point.y == head.getY());
             if (coliding.length > 0) {
-                console.log('kolizja ze ścianą')
                 return true;
             }
-
-
-
 
             return false;
             // let pointsWall = Enumerable.from(_wallsArray).selectMany(wall => wall.getPoints()).toArray();
@@ -445,7 +445,7 @@ class Game {
                 _snake.move(_snakeDirection);
             }
 
-            if (_points > _nextSpeedUpPoints) {
+            if (_points >= _nextSpeedUpPoints && _currentDeley >= 50) {
                 _accelerateSnakeMove();
             }
 
@@ -511,7 +511,7 @@ class Game {
         }
 
         _initApples();
-        _initSuperApples();
+        _initSuperApples(3);
         _updateScores();
 
         setInterval(() => {
