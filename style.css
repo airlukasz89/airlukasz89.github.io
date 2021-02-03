@@ -214,10 +214,12 @@ footer {
 }
 
 
-#points {
+#points,
+#level {
   margin: 0;
   margin-left: 30%;
   font-weight: bold;
+  transition: 1s;
 
 }
 

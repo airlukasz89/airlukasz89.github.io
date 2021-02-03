@@ -1,5 +1,5 @@
 class Game {
-    constructor(height, width, htmlElement, buttonUp, buttonRight, buttonDown, buttonLeft, pointsSpan, scoreLabel) {
+    constructor(height, width, htmlElement, buttonUp, buttonRight, buttonDown, buttonLeft, pointsSpan, scoreLabel, levelSpan) {
         let _display = new Display(height, width, htmlElement);
         let _width = width;
         let _height = height;
@@ -10,13 +10,17 @@ class Game {
         let _points = 0;
         let _applesArray = [];
         let _superApplesArray = [];
-        let _delay = 200;
         let _nextSpeedUpPoints = 10;
         let _gameInterval;
         let _wallsArray = [];
         let _scoreLabel = scoreLabel;
         let _wallsInGame = 0;
-        let _speedUpNextLevel = 200;
+        const _startDeley = 200;
+        let _nextLevelStartDeley = _startDeley;
+        const _nextLevelDiffDeley = 5;
+        let _currentDeley = _startDeley;
+        let _levelSpan = levelSpan;
+        let _levels = 1;
 
 
 
@@ -273,39 +277,18 @@ class Game {
 
         let _rerunIntervalWithDelay = (newDelay) => {
             this.stop();
-            _delay = newDelay;
+            _currentDeley = newDelay;
             this.start();
         }
 
         let _accelerateSnakeMove = () => {
-            _rerunIntervalWithDelay(_delay - 30);
+            _rerunIntervalWithDelay(_currentDeley - 30);
             _nextSpeedUpPoints += 5;
-            console.log(_delay);
+            console.log(_currentDeley);
 
         }
 
-        function _getOS() {
-            var userAgent = window.navigator.userAgent,
-                platform = window.navigator.platform,
-                macosPlatforms = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'],
-                windowsPlatforms = ['Win32', 'Win64', 'Windows', 'WinCE'],
-                iosPlatforms = ['iPhone', 'iPad', 'iPod'],
-                os = null;
 
-            if (macosPlatforms.indexOf(platform) !== -1) {
-                os = 'Mac OS';
-            } else if (iosPlatforms.indexOf(platform) !== -1) {
-                os = 'iOS';
-            } else if (windowsPlatforms.indexOf(platform) !== -1) {
-                os = 'Windows';
-            } else if (/Android/.test(userAgent)) {
-                os = 'Android';
-            } else if (!os && /Linux/.test(platform)) {
-                os = 'Linux';
-            }
-
-            return os;
-        }
 
         let _addScore = () => {
             let name;
@@ -332,36 +315,64 @@ class Game {
         }
 
         let _restartGameplay = () => {
-            _addScore();
-            _wallsInGame = 0;
-            _snake = new Snake(width / 2, height / 2);
-            _initApples();
-            _initSuperApples();
-            _wallsArray = [];
-            _snakeDirection = null;
-            _inputManager.reset();
-            _clearPoints()
-            _rerunIntervalWithDelay(200);
+
+            var audio = new Audio('gameover.mp3');
+            audio.play();
+            this.stop()
+
+            setTimeout(() => {
+                _addScore();
+                _wallsInGame = 0;
+                _snake = new Snake(width / 2, height / 2);
+                _initApples();
+                _initSuperApples();
+                _wallsArray = [];
+                _snakeDirection = null;
+                _inputManager.reset();
+                _clearPoints();
+                _clearLevel();
+
+
+                _nextLevelStartDeley = _startDeley;
+                _rerunIntervalWithDelay(_startDeley);
+            }, 100)
+
+
         }
 
         let _addPoint = (value) => {
             _pointsSpan.textContent = _points = _points + value;
         }
 
+        let _addLevelNumber = () => {
+            _levelSpan.textContent = _levels = _levels + 1;
+        }
+
         let _clearPoints = () => {
             _pointsSpan.textContent = _points = 0;
             _nextSpeedUpPoints = 10;
-            _speedUpNextLevel = 200;
         }
 
+        let _clearLevel = () => {
+            _levelSpan.textContent = _levels = 1;
+
+        }
+
+
+
         let _goToNextLevel = () => {
+            var audio = new Audio('nextlevel.mp3');
+            audio.play();
+
             _wallsInGame += 5;
-            _speedUpNextLevel -= 5;
             _initWalls();
             _initSuperApples();
             _initApples();
-            _rerunIntervalWithDelay(_speedUpNextLevel);
-            console.log("prędkość w nowej planszy " + _speedUpNextLevel)
+            _addLevelNumber()
+
+            _nextLevelStartDeley -= _nextLevelDiffDeley;
+            _rerunIntervalWithDelay(_nextLevelStartDeley);
+            console.log("prędkość w nowej planszy " + _nextLevelStartDeley);
 
         }
 
@@ -424,7 +435,7 @@ class Game {
                 head = snakeTmp.getHead();
                 _snake.eatApple(head.getX(), head.getY());
 
-                var audio = new Audio('pong.wav');
+                var audio = new Audio('amam.mp3');
                 audio.play();
                 _addPoint(4);
                 _snake.move(_snakeDirection);
@@ -490,7 +501,7 @@ class Game {
             _gameInterval = setInterval(() => {
                 this.updateLogic();
                 this.render();
-            }, _delay);
+            }, _currentDeley);
         }
 
         this.stop = () => {
@@ -505,7 +516,7 @@ class Game {
 
         setInterval(() => {
             _updateScores();
-        }, 5000);
+        }, 30000);
 
         this.start();
         // let _x = () => {
