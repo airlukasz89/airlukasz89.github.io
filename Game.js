@@ -538,5 +538,3 @@ class Game {
         // _x();
     }
 }
-
-new Game();
