@@ -60,7 +60,7 @@ class Game {
                     for (let i = 0; i < recordsArray.length; i++) {
                         let record = recordsArray[i];
 
-                        _scoreLabel.innerHTML += `${i+1}. ${record.name} - ${record.points} (${record.platform}) <br/>`.toUpperCase();
+                        _scoreLabel.innerHTML += `${i+1}. ${record.name} - ${record.points} pkt - ${record.levels} level (${record.platform}) <br/>`.toUpperCase();
                     }
                 });
         }
@@ -305,6 +305,7 @@ class Game {
             _fetch('https://snejkdatabase-0b0e.restdb.io/rest/records', {
                     name: name,
                     points: _points,
+                    levels: _levels,
                     platform: navigator.platform //_getOS()
                 }, "POST")
                 .then(data => {
@@ -316,7 +317,15 @@ class Game {
 
             var audio = new Audio('gameover.mp3');
             audio.play();
-            this.stop()
+            this.stop();
+
+            setTimeout(() => {
+                var audio2 = new Audio('gameover2.mp3');
+                audio2.play();
+                this.stop()
+            }, 2200)
+
+
 
             setTimeout(() => {
                 _addScore();
@@ -333,7 +342,7 @@ class Game {
 
                 _nextLevelStartDeley = _startDeley;
                 _rerunIntervalWithDelay(_startDeley);
-            }, 500)
+            }, 2300)
 
 
         }
@@ -359,7 +368,7 @@ class Game {
 
 
         let _goToNextLevel = () => {
-            var audio = new Audio('nextlevel.mp3');
+            var audio = new Audio('endlevel.mp3');
             audio.play();
 
             _addLevelNumber()
@@ -529,3 +538,5 @@ class Game {
         // _x();
     }
 }
+
+new Game();

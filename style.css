@@ -216,11 +216,20 @@ footer {
 
 #points,
 #level {
-  margin: 0;
-  margin-left: 30%;
+  /* margin: 0;
+  margin-left: 30%; */
   font-weight: bold;
   transition: 1s;
 
+}
+
+#points {
+  float: left;
+}
+
+#level {
+  float: right;
+  bottom: 200px;
 }
 
 #scores {
