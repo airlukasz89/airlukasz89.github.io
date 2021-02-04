@@ -122,12 +122,12 @@ div.nag h2 {
   margin-bottom: 50px;
 }
 
-section p {
+/* section p {
   line-height: 1.8;
   font-size: 18px;
   margin-bottom: 118px;
 
-}
+} */
 
 div.zagadka {
   margin-top: 50px;
@@ -219,18 +219,16 @@ footer {
   /* margin: 0;
   margin-left: 30%; */
   font-weight: bold;
-  transition: 1s;
-
 }
 
-#points {
-  float: left;
+/* #points {
+  left: auto;
 }
 
 #level {
-  float: right;
-  bottom: 200px;
-}
+  right: auto;
+
+} */
 
 #scores {
   color: rgb(51, 122, 4);
