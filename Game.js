@@ -368,12 +368,12 @@ class Game {
 
 
         let _goToNextLevel = () => {
-            var audio = new Audio('endlevel.mp3');
+            var audio = new Audio('nextlev.mp3');
             audio.play();
 
             _addLevelNumber()
 
-            if (_levels % 2 == 0) {
+            if (_levels % 3 == 0) {
                 _applesArray = [];
                 _wallsArray = [];
                 _initSuperApples(10);
