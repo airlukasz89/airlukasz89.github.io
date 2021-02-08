@@ -322,8 +322,7 @@ class Game {
             setTimeout(() => {
                 var audio2 = new Audio('gameover2.mp3');
                 audio2.play();
-                this.stop()
-            }, 2200)
+            }, 2500)
 
 
 
@@ -470,6 +469,8 @@ class Game {
                 _goToNextLevel();
             }
 
+
+
         }
 
         let _changeApplesColor = (applesArray) => {
@@ -526,6 +527,15 @@ class Game {
         setInterval(() => {
             _updateScores();
         }, 30000);
+
+        setInterval(() => {
+            if (_levels % 3 == 0) {
+
+                for (const apple of _superApplesArray) {
+                    apple.move();
+                }
+            }
+        }, 500);
 
         this.start();
         // let _x = () => {
