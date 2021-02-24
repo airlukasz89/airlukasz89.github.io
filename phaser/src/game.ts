@@ -5,7 +5,7 @@ export default class Demo extends Phaser.Scene {
         super('demo');
     }
 
-    ship: Phaser.GameObjects.Image;
+    ship: Phaser.GameObjects.Sprite;
     player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
 
     cursors: Phaser.Types.Input.Keyboard.CursorKeys;
@@ -13,26 +13,26 @@ export default class Demo extends Phaser.Scene {
     preload() {
         this.load.image('bg', 'assets/libs.png');
         this.load.image('ground', 'assets/phaser3-logo.png');
-        this.load.image('ship', 'assets/ship.png');
+        this.load.spritesheet('ship', 'assets/ezgif.com-gif-maker.png', { frameWidth: 176, frameHeight: 96 });
     }
 
     update() {
-        let diff = 10;
+        let diff = 20;
         if (this.cursors.left.isDown) {
             this.ship.x -= diff;
 
-            this.player.setVelocityX(-40)
+            this.player.setVelocityX(-200)
         }
         else if (this.cursors.right.isDown) {
             this.ship.x += diff;
 
-            this.player.setVelocityX(40)
+            this.player.setVelocityX(200)
         }
 
         if (this.cursors.up.isDown) {
             this.ship.y -= diff;
 
-            this.player.setVelocityY(-50)
+            this.player.setVelocityY(-200)
         }
         else if (this.cursors.down.isDown) {
             this.ship.y += diff;
@@ -45,14 +45,29 @@ export default class Demo extends Phaser.Scene {
         var windowWidth = window.innerWidth;
         var widnowHeight = window.innerHeight;
         var bg = this.add.image(this.cameras.main.width / 2, this.cameras.main.height / 2, 'bg');
+
         // bg.setDisplaySize(windowWidth, widnowHeight);
         let scaleX = this.cameras.main.width / bg.width
         let scaleY = this.cameras.main.height / bg.height
         let scale = Math.max(scaleX, scaleY)
         bg.setScale(scale).setScrollFactor(0)
 
-        this.ship = this.add.image(100, 100, 'ship')
-        this.ship.setScale(0.3, 0.3);
+        // this.ship = this.add.image(100, 100, 'ship')
+        // this.ship.setScale(0.3, 0.3);
+        const shipAnimation = this.anims.create({
+            key: 'fly',
+            frames: this.anims.generateFrameNumbers('ship', null),
+            frameRate: 16
+        });
+
+        this.ship = this.add.sprite(150, 450, 'ship');
+
+        this.ship.play({ key: 'fly', repeat: -1 });
+
+
+
+
+
 
         const platforms = this.createPlatforms();
         this.createPlayer();
