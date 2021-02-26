@@ -1,4 +1,5 @@
 import 'phaser';
+import Bullet from "./Bullet";
 
 export default class Demo extends Phaser.Scene {
     constructor() {
@@ -7,16 +8,20 @@ export default class Demo extends Phaser.Scene {
 
     ship: Phaser.GameObjects.Sprite;
     player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
+    bullets: Phaser.GameObjects.Group;
+    speed: number;
+    lastFired: number = 0;
 
     cursors: Phaser.Types.Input.Keyboard.CursorKeys;
 
     preload() {
+        this.load.image('bullet', 'assets/bullet.png');
         this.load.image('bg', 'assets/libs.png');
         this.load.image('ground', 'assets/phaser3-logo.png');
         this.load.spritesheet('ship', 'assets/ezgif.com-gif-maker.png', { frameWidth: 176, frameHeight: 96 });
     }
 
-    update() {
+    update(time: number, delta: number) {
         let diff = 20;
         if (this.cursors.left.isDown) {
             this.ship.x -= diff;
@@ -37,6 +42,20 @@ export default class Demo extends Phaser.Scene {
         else if (this.cursors.down.isDown) {
             this.ship.y += diff;
         }
+
+
+
+
+
+        if (this.cursors.space.isDown && time > this.lastFired) {
+            var bullet = this.bullets.get();
+
+            if (bullet) {
+                bullet.fire(this.ship.x, this.ship.y);
+
+                this.lastFired = time + 50;
+            }
+        }
     }
 
     create() {
@@ -54,6 +73,28 @@ export default class Demo extends Phaser.Scene {
 
         // this.ship = this.add.image(100, 100, 'ship')
         // this.ship.setScale(0.3, 0.3);
+
+
+
+
+
+
+        this.bullets = this.add.group({
+            classType: Bullet,
+            maxSize: 50,
+            runChildUpdate: true
+        });
+
+        this.bullets.createMultiple({ quantity: 20, active: false });
+
+        // ship = this.add.sprite(400, 500, 'ship').setDepth(1);
+
+        this.speed = Phaser.Math.GetSpeed(300, 1)
+
+
+
+
+
         const shipAnimation = this.anims.create({
             key: 'fly',
             frames: this.anims.generateFrameNumbers('ship', null),
@@ -64,8 +105,7 @@ export default class Demo extends Phaser.Scene {
 
         this.ship.play({ key: 'fly', repeat: -1 });
 
-
-
+        this.ship.setScale(1.5, 1.5);
 
 
 
@@ -121,5 +161,7 @@ const config = {
     // height: 600,
     scene: Demo
 };
+
+
 
 const game = new Phaser.Game(config);
