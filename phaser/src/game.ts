@@ -7,6 +7,7 @@ export default class Demo extends Phaser.Scene {
     }
 
     ship: Phaser.GameObjects.Sprite;
+    shipEnemy: Phaser.GameObjects.Sprite;
     player: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
     bullets: Phaser.GameObjects.Group;
     speed: number;
@@ -19,6 +20,7 @@ export default class Demo extends Phaser.Scene {
         this.load.image('bg', 'assets/libs.png');
         this.load.image('ground', 'assets/phaser3-logo.png');
         this.load.spritesheet('ship', 'assets/ezgif.com-gif-maker.png', { frameWidth: 176, frameHeight: 96 });
+        this.load.spritesheet('shipEnemy', 'assets/spriteSheetShipEnemy.png', { frameWidth: 528, frameHeight: 125 });
     }
 
     update(time: number, delta: number) {
@@ -105,7 +107,19 @@ export default class Demo extends Phaser.Scene {
 
         this.ship.play({ key: 'fly', repeat: -1 });
 
-        this.ship.setScale(1.5, 1.5);
+        this.ship.setOrigin(0, 1);
+
+        const shipEnemyAnimation = this.anims.create({
+            key: 'flyEnemy',
+            frames: this.anims.generateFrameNumbers('shipEnemy', null),
+            frameRate: 16
+        });
+
+        this.shipEnemy = this.add.sprite(550, 650, 'shipEnemy');
+
+        this.shipEnemy.play({ key: 'flyEnemy', repeat: -1 });
+
+        // this.shipEnemy.setScale(1.5, 1.5);
 
 
 
