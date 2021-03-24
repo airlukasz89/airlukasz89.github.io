@@ -1,0 +1,43 @@
+div.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 90%;
+  margin: 0 auto;
+
+  color: #222;
+}
+
+header {
+  flex-basis: 100vh;
+  position: relative;
+  overflow: hidden;
+  background-color: hotpink;
+}
+
+main {
+  display: flex;
+  flex-grow: 1;
+  padding: 30px 0;
+}
+
+aside {
+  flex-grow: 1;
+  background-color: blue;
+
+}
+
+section.date {
+  flex-grow: 1;
+  background-color: green;
+
+}
+
+footer {
+  background-color: black;
+  color: white;
+  padding: 10px 0;
+  text-align: center;
+  text-transform: uppercase;
+  /* margin-bottom: 50px; */
+}
