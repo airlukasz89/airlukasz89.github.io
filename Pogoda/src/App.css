@@ -22,14 +22,14 @@ main {
 }
 
 aside {
-  flex-grow: 1;
+  /* flex-grow: 1; */
   background-color: blue;
 
 }
 
 section.date {
   flex-grow: 1;
-  background-color: green;
+  /* background-color: green; */
 
 }
 
