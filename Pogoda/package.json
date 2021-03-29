@@ -5,6 +5,7 @@
   "dependencies": {
     "google-maps-react": "^2.0.6",
     "leaflet": "^1.7.1",
+    "node-sass": "^5.0.0",
     "react": "^17.0.1",
     "react-calendar": "^3.3.1",
     "react-dom": "^17.0.1",

@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import Calendar from 'react-calendar';
+
 
 
 import MapWrapper from './MapWrapper';
 import Forecast from './Forecast';
 import Footer from './Footer';
+import AutoComplete from './AutoComplete';
 
 import '../App.css';
-import 'react-calendar/dist/Calendar.css';
+
 
 const App = () => {
   const [position, setPosition] = useState([52.422058, 16.973800]);
@@ -17,7 +18,15 @@ const App = () => {
 
   const apiKey = '1e5c1d3bb87cf0a80418d12c9f172264';
 
-
+  const browserChoices = [
+    'Chrome',
+    'Firefox',
+    'Iceweasel',
+    'Internet Explorer',
+    'Opera',
+    'Safari',
+    'Vivaldi'
+  ]
 
   const handleChangePosition = (newPosition) => (
     setPosition(newPosition)
@@ -47,10 +56,11 @@ const App = () => {
       <main>
         <aside>
 
-          <Calendar
-            onChange={setDate}
-            value={date}
-          />
+          <label>
+            <div className="autoComplete">
+              <AutoComplete />
+            </div>
+          </label>
 
         </aside>
         <section className="date">
